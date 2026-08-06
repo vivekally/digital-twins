@@ -1,0 +1,5 @@
+.DS_Store
+.claude/
+CLAUDE.md
+.gbrain-source
+node_modules/

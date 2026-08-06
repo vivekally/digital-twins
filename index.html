@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital Twins · Market, Players, Architecture, and the Company Brain Question</title>
+<style>
+:root{
+  --bg:#0A0B0E;
+  --bg-2:#0E1116;
+  --panel:#13171E;
+  --panel-2:#171C25;
+  --line:rgba(255,255,255,.09);
+  --line-2:rgba(255,255,255,.15);
+  --ink:#EDEFF3;
+  --ink-2:#A6AEBB;
+  --ink-3:#6C7684;
+  --accent:#7C9CFF;
+  --twin:#F5A524;
+  --brain:#4CC9F0;
+  --pos:#52D98A;
+  --neg:#FF6B6B;
+  --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, "JetBrains Mono", Menlo, Consolas, monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow:hidden;
+}
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  background:
+    radial-gradient(900px 500px at 12% -10%, rgba(124,156,255,.10), transparent 60%),
+    radial-gradient(800px 500px at 95% 108%, rgba(76,201,240,.07), transparent 60%);
+  pointer-events:none;z-index:0;
+}
+
+/* ---------- deck shell ---------- */
+.deck{position:fixed;inset:0;z-index:1}
+.slide{
+  position:absolute;inset:0;
+  overflow-y:auto;overflow-x:hidden;
+  opacity:0;visibility:hidden;
+  transform:translateY(14px);
+  transition:opacity .45s cubic-bezier(.22,.61,.36,1), transform .45s cubic-bezier(.22,.61,.36,1), visibility .45s;
+  padding:clamp(24px,3.6vh,44px) clamp(24px,4.5vw,72px) clamp(76px,9.2vh,96px);
+}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.fit{width:100%;transform-origin:top center}
+.wrap{max-width:1340px;margin:0 auto}
+
+/* ---------- slide header ---------- */
+.shead{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:clamp(20px,3vh,34px)}
+.snum{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--accent);font-weight:600}
+.skicker{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
+.shead .spacer{flex:1}
+h1{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(28px,3.6vw,48px);
+  line-height:1.05;
+  letter-spacing:-.02em;
+  margin-bottom:8px;
+}
+h1 em{font-style:italic;color:var(--accent)}
+.sub{font-size:clamp(13px,1.2vw,16px);color:var(--ink-2);max-width:104ch;line-height:1.5}
+.sub b{color:var(--ink);font-weight:600}
+
+h2{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-bottom:12px}
+
+/* ---------- generic bits ---------- */
+.grid{display:grid;gap:clamp(12px,1.4vw,20px)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+.card{
+  background:linear-gradient(180deg,var(--panel),var(--bg-2));
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:clamp(14px,1.4vw,19px);
+}
+.card.tint-twin{border-color:rgba(245,165,36,.28);background:linear-gradient(180deg,rgba(245,165,36,.07),var(--bg-2))}
+.card.tint-brain{border-color:rgba(76,201,240,.28);background:linear-gradient(180deg,rgba(76,201,240,.06),var(--bg-2))}
+.card h3{font-size:clamp(15px,1.5vw,19px);font-weight:650;letter-spacing:-.01em;margin-bottom:6px}
+.card p{font-size:clamp(12.5px,1.05vw,14.5px);color:var(--ink-2);line-height:1.55}
+.card p + p{margin-top:8px}
+
+.tag{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;border-radius:5px;border:1px solid var(--line-2);color:var(--ink-3);margin-bottom:10px}
+.tag.a{color:var(--accent);border-color:rgba(124,156,255,.35);background:rgba(124,156,255,.08)}
+.tag.t{color:var(--twin);border-color:rgba(245,165,36,.35);background:rgba(245,165,36,.08)}
+.tag.b{color:var(--brain);border-color:rgba(76,201,240,.35);background:rgba(76,201,240,.08)}
+
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.big{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:clamp(22px,2.5vw,33px);font-weight:600;letter-spacing:-.035em;line-height:1;display:block;margin-bottom:5px}
+.lbl{font-size:12px;color:var(--ink-3);line-height:1.4}
+
+.finding{
+  border-left:3px solid var(--accent);
+  background:linear-gradient(90deg,rgba(124,156,255,.09),rgba(124,156,255,.01));
+  border-radius:0 12px 12px 0;
+  padding:clamp(12px,1.25vw,17px) clamp(14px,1.5vw,22px);
+}
+.finding .fh{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;font-weight:600}
+.finding p{font-size:clamp(12px,1.02vw,14px);color:var(--ink-2);line-height:1.55}
+.finding strong{color:var(--ink);font-weight:650}
+
+/* ---------- tables ---------- */
+.tscroll{overflow:auto;max-height:clamp(260px,46vh,540px);border:1px solid var(--line);border-radius:12px;background:var(--bg-2);scrollbar-width:thin}
+.tscroll::-webkit-scrollbar{width:8px;height:8px}
+.tscroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:4px}
+/* fade at the lower edge so it reads as scrollable rather than as the end of the table */
+.tshell{position:relative}
+.tshell::after{content:"";position:absolute;left:1px;right:1px;bottom:1px;height:44px;border-radius:0 0 12px 12px;background:linear-gradient(180deg,transparent,var(--bg-2) 85%);pointer-events:none}
+.tshell .thint{position:absolute;right:16px;bottom:9px;z-index:2;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);pointer-events:none}
+table{width:100%;border-collapse:collapse;font-size:clamp(11.5px,1.02vw,13.6px)}
+th{
+  text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:600;padding:11px 14px;border-bottom:1px solid var(--line);
+  background:rgba(255,255,255,.02);white-space:nowrap;position:sticky;top:0;
+}
+td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.05);color:var(--ink-2);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td strong{color:var(--ink);font-weight:600}
+tbody tr:hover td{background:rgba(255,255,255,.022)}
+.rowgroup td{
+  background:rgba(124,156,255,.06);color:var(--accent);
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;padding:8px 14px;
+}
+.money{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
+
+/* ---------- bars ---------- */
+.bars{display:flex;flex-direction:column;gap:clamp(10px,1.4vh,16px)}
+.bar-row{display:grid;grid-template-columns:minmax(140px,20%) 1fr;gap:16px;align-items:center}
+.bar-name{font-size:13px;color:var(--ink-2);line-height:1.3}
+.bar-name span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.bar-track{position:relative;height:clamp(26px,3.4vh,32px);background:rgba(255,255,255,.035);border-radius:7px;overflow:hidden;border:1px solid var(--line)}
+.bar-fill{position:absolute;left:0;top:0;bottom:0;border-radius:6px 0 0 6px;display:flex;align-items:center;padding:0 12px;min-width:4px}
+.bar-fill.f1{background:linear-gradient(90deg,rgba(124,156,255,.55),rgba(124,156,255,.16))}
+.bar-fill.f2{background:linear-gradient(90deg,rgba(76,201,240,.5),rgba(76,201,240,.14))}
+.bar-fill.f3{background:linear-gradient(90deg,rgba(245,165,36,.85),rgba(245,165,36,.4))}
+.bar-val{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap}
+.bar-out{position:absolute;left:0;top:0;bottom:0;display:flex;align-items:center;padding-left:14px;font-family:var(--mono);font-size:13px;font-weight:600;color:var(--twin);white-space:nowrap}
+
+/* ---------- stack diagram ---------- */
+.stack{display:flex;flex-direction:column;gap:5px}
+.layer{
+  display:grid;grid-template-columns:46px minmax(146px,1fr) 2.15fr;gap:clamp(10px,1.3vw,18px);align-items:center;
+  background:var(--panel);border:1px solid var(--line);border-radius:10px;
+  padding:clamp(7px,.85vh,11px) clamp(11px,1.2vw,16px);
+  transition:border-color .2s, background .2s;
+}
+.layer:hover{border-color:var(--line-2);background:var(--panel-2)}
+.layer.hot{border-color:rgba(124,156,255,.4);background:linear-gradient(90deg,rgba(124,156,255,.09),var(--panel))}
+.ln{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.06em}
+.layer.hot .ln{color:var(--accent)}
+.lname{font-size:clamp(13px,1.2vw,15.5px);font-weight:640;letter-spacing:-.01em}
+.lname span{display:block;font-weight:400;font-size:11.5px;color:var(--ink-3);margin-top:2px;letter-spacing:0}
+.ldesc{font-size:clamp(11.5px,1.02vw,13.4px);color:var(--ink-2);line-height:1.5}
+.ldesc code{font-family:var(--mono);font-size:.92em;color:var(--accent);background:rgba(124,156,255,.1);padding:1px 5px;border-radius:4px}
+.ldesc b{color:var(--ink);font-weight:600}
+
+/* ---------- venn / convergence ---------- */
+.conv{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:clamp(10px,1.2vw,18px);align-items:stretch}
+.conv .mid{
+  background:linear-gradient(180deg,rgba(124,156,255,.12),rgba(124,156,255,.03));
+  border:1px solid rgba(124,156,255,.32);border-radius:14px;padding:clamp(14px,1.5vw,20px);
+}
+.conv ul{list-style:none;font-size:clamp(11.5px,1.02vw,13.4px);color:var(--ink-2);line-height:1.4}
+.conv li{padding:2.5px 0 2.5px 16px;position:relative}
+.conv li::before{content:"";position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:var(--ink-3)}
+.conv .card h3,.conv .mid h3{font-size:clamp(14px,1.35vw,17px)}
+.conv .tag{margin-bottom:7px}
+.conv .mid li::before{background:var(--accent)}
+.conv .l li::before{background:var(--twin)}
+.conv .r li::before{background:var(--brain)}
+.pct{font-family:var(--mono);font-size:clamp(20px,2.4vw,30px);font-weight:600;letter-spacing:-.03em;color:var(--accent);display:block;line-height:1}
+
+/* ---------- verdict ---------- */
+.calls{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1.2vw,16px)}
+.call{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:clamp(13px,1.4vw,18px);position:relative;overflow:hidden}
+.call::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--pos)}
+.call:nth-child(4)::before{background:var(--neg)}
+.call .cn{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--ink-3);margin-bottom:7px}
+.call h4{font-size:clamp(12.5px,1.1vw,14.5px);font-weight:650;margin-bottom:5px;letter-spacing:-.01em;line-height:1.25}
+.call p{font-size:clamp(11.5px,.98vw,12.9px);color:var(--ink-2);line-height:1.45}
+
+/* ---------- chrome: nav ---------- */
+.chrome{
+  position:fixed;left:0;right:0;bottom:0;z-index:20;
+  display:flex;align-items:center;gap:14px;
+  padding:12px clamp(20px,4vw,44px);
+  background:linear-gradient(180deg,transparent,rgba(10,11,14,.92) 42%);
+  backdrop-filter:blur(6px);
+}
+.brand{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap}
+.brand b{color:var(--ink-2);font-weight:600}
+.dots{display:flex;gap:6px;flex:1;justify-content:center}
+.dot{
+  appearance:none;border:1px solid var(--line-2);background:transparent;cursor:pointer;
+  height:6px;width:26px;border-radius:3px;padding:0;transition:all .25s;
+}
+.dot:hover{background:rgba(255,255,255,.16)}
+.dot.on{background:var(--accent);border-color:var(--accent);width:40px}
+.navbtns{display:flex;gap:6px;align-items:center}
+.nb{
+  appearance:none;background:rgba(255,255,255,.05);border:1px solid var(--line-2);color:var(--ink-2);
+  height:30px;min-width:30px;padding:0 9px;border-radius:8px;cursor:pointer;font-size:13px;font-family:var(--sans);
+  display:inline-flex;align-items:center;justify-content:center;transition:all .18s;
+}
+.nb:hover{background:rgba(255,255,255,.11);color:var(--ink);border-color:var(--line-2)}
+.nb:disabled{opacity:.3;cursor:default}
+.nb.src{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;padding:0 12px}
+.counter{font-family:var(--mono);font-size:11px;color:var(--ink-3);font-variant-numeric:tabular-nums;white-space:nowrap}
+.counter b{color:var(--ink)}
+
+/* ---------- sources drawer ---------- */
+.drawer{
+  position:fixed;top:0;right:0;bottom:0;width:min(560px,92vw);z-index:40;
+  background:var(--bg-2);border-left:1px solid var(--line-2);
+  transform:translateX(101%);transition:transform .35s cubic-bezier(.22,.61,.36,1);
+  overflow-y:auto;padding:26px clamp(20px,3vw,34px) 60px;
+  box-shadow:-30px 0 60px rgba(0,0,0,.5);
+}
+.drawer.open{transform:none}
+.drawer h3{font-family:var(--serif);font-size:24px;font-weight:400;margin-bottom:4px}
+.drawer .dsub{font-size:12.5px;color:var(--ink-3);margin-bottom:20px}
+.drawer h4{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:20px 0 8px;font-weight:600}
+.drawer ol{list-style:none;counter-reset:s}
+.drawer li{counter-increment:s;font-size:12.6px;color:var(--ink-2);padding:6px 0 6px 26px;position:relative;line-height:1.45;border-bottom:1px solid rgba(255,255,255,.04)}
+.drawer li::before{content:counter(s);position:absolute;left:0;top:7px;font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+.drawer a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(124,156,255,.3)}
+.drawer a:hover{border-bottom-color:var(--accent)}
+.dclose{position:absolute;top:20px;right:22px;appearance:none;background:transparent;border:1px solid var(--line-2);color:var(--ink-2);width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:14px;line-height:1}
+.dclose:hover{background:rgba(255,255,255,.08);color:var(--ink)}
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:35;opacity:0;visibility:hidden;transition:.3s}
+.scrim.on{opacity:1;visibility:visible}
+
+.hint{position:fixed;bottom:64px;left:50%;transform:translateX(-50%);z-index:19;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);opacity:1;transition:opacity .6s;pointer-events:none}
+.hint.gone{opacity:0}
+
+.foot{margin-top:clamp(14px,2.2vh,24px);padding-top:clamp(10px,1.4vh,16px);border-top:1px solid rgba(255,255,255,.05);font-size:11.5px;color:var(--ink-3);line-height:1.5}
+.foot b{color:var(--ink-2);font-weight:600}
+
+@media (max-width:1080px){
+  .g3,.calls{grid-template-columns:repeat(2,1fr)}
+  .conv{grid-template-columns:1fr}
+  .layer{grid-template-columns:40px 1fr;row-gap:6px}
+  .layer .ldesc{grid-column:1 / -1}
+}
+@media (max-width:680px){
+  .g3,.g2,.calls{grid-template-columns:1fr}
+  .bar-row{grid-template-columns:1fr;gap:6px}
+  .brand{display:none}
+}
+
+@media print{
+  body,html{overflow:visible;height:auto;background:#fff}
+  body::before,.chrome,.hint,.scrim{display:none}
+  .deck{position:static}
+  .slide{position:static;opacity:1;visibility:visible;transform:none;page-break-after:always;min-height:auto;padding:24px}
+  .fit{transform:none !important;margin-bottom:0 !important}
+  .tscroll{max-height:none;overflow:visible}
+  .drawer{position:static;transform:none;width:auto;box-shadow:none;border:none}
+}
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+<!-- ══════════════════════════ SLIDE 1 · MARKET ══════════════════════════ -->
+<section class="slide active" id="s1">
+<div class="fit"><div class="wrap">
+  <div class="shead">
+    <span class="snum">01</span>
+    <span class="skicker">Market</span>
+    <span class="spacer"></span>
+    <span class="skicker">Aug 2026</span>
+  </div>
+
+  <h1>Three markets are wearing <em>one name</em>.</h1>
+  <p class="sub">Every "digital twin market size" headline blends a factory-simulation business, a video-avatar business, and a replica-of-a-named-person business. Only the first two have revenue anyone measures. <b>The category this report is about, a conversational twin of a specific human, has no analyst coverage at all.</b></p>
+
+  <div class="grid g3" style="margin:clamp(14px,2.2vh,24px) 0 clamp(12px,1.8vh,20px)">
+    <div class="card">
+      <span class="tag a">A · Asset &amp; process twins</span>
+      <span class="big">$26–40B</span>
+      <p class="lbl" style="margin-bottom:8px">2026 market, seven research firms · 30–42% CAGR</p>
+      <p>Factories, grids, supply chains, and now whole organizations. Gartner published its <b>first-ever Magic Quadrant for Digital Twin of an Organization platforms in 2026</b>; Celonis and SAP named Leaders. This is where the headline dollars live, and it has nothing to do with people.</p>
+    </div>
+    <div class="card">
+      <span class="tag b">B · Digital humans &amp; avatars</span>
+      <span class="big">$11–13B</span>
+      <p class="lbl" style="margin-bottom:8px">2026 market · forecasts diverge 3× by 2035</p>
+      <p>Video likeness generation, and genuinely commercial: <b>Synthesia at $146M ARR raised $200M at a $4B valuation</b> (GV, Nvidia); HeyGen reported $95M ARR in Sept 2025. A talking head that looks like you is a solved, sold product. It just doesn't know anything about you.</p>
+    </div>
+    <div class="card tint-twin">
+      <span class="tag t">C · Person replicas</span>
+      <span class="big" style="color:var(--twin)">unsized</span>
+      <p class="lbl" style="margin-bottom:8px">No analyst firm sizes this segment</p>
+      <p>The actual "digital twin of you." Total disclosed venture funding across every pure-play startup in it: <b>roughly $84M</b>. Gartner named replicating employees a top 2026 CHRO trend, and still puts widespread digital-twin-of-customer adoption <b>5–10 years out</b>.</p>
+    </div>
+  </div>
+
+  <h2>What the money actually looks like when you put it on one axis</h2>
+  <div class="bars" style="margin-bottom:clamp(12px,1.8vh,20px)">
+    <div class="bar-row">
+      <div class="bar-name">Asset &amp; process twins<span>2026 revenue</span></div>
+      <div class="bar-track"><div class="bar-fill f1" style="width:100%"><span class="bar-val">~$33B market</span></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-name">Digital humans / avatars<span>2026 revenue</span></div>
+      <div class="bar-track"><div class="bar-fill f2" style="width:36%"><span class="bar-val">~$12B market</span></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-name">Person replicas<span>all-time funding</span></div>
+      <div class="bar-track"><div class="bar-fill f3" style="width:0.26%"></div><div class="bar-out" style="left:12px">~$84M, and that is capital raised, not revenue earned</div></div>
+    </div>
+  </div>
+
+  <div class="finding">
+    <div class="fh">Read-through</div>
+    <p>The third bar is deliberately not the same unit as the first two, <strong>because there is no revenue figure to put there.</strong> That mismatch is the finding. When 2026 estimates for the same "digital twin market" range from $26.4B to $39.8B and 2035 CAGRs from 30% to 46% across seven firms, those are extrapolations, not measurements, and none of them measure what Viven and Delphi sell. Size this category off <strong>capital concentration and adjacent ARR</strong>, not off a TAM slide. Two demand signals are checkable: 95% of HR leaders surveyed by Gartner are piloting or running generative AI and 80%+ intend to deploy agentic AI within a year; and behaviour-simulation twins are aiming at the <strong>~$140B market-research industry</strong>, where one focus group still costs $5,000–$20,000.</p>
+  </div>
+
+  <div class="foot"><b>Confidence:</b> High on funding and ARR figures (primary announcements). Low on all TAM/CAGR figures: vendor-commissioned research, three-fold disagreement between firms, inconsistent category boundaries. Treat every dollar figure in the first two columns as directional only.</div>
+</div></div>
+</section>
+
+<!-- ══════════════════════════ SLIDE 2 · PLAYERS ══════════════════════════ -->
+<section class="slide" id="s2">
+<div class="fit"><div class="wrap">
+  <div class="shead">
+    <span class="snum">02</span>
+    <span class="skicker">Players &amp; Capital</span>
+    <span class="spacer"></span>
+    <span class="skicker">Disclosed rounds through Aug 2026</span>
+  </div>
+
+  <h1>The person is the <em>least-funded</em> layer of the person business.</h1>
+  <p class="sub">Capital and revenue both sit one layer out from the twin itself: in the simulation layer above it, and in the rendering and retrieval layers beneath it. <b>Not one company that replicates a named individual has published a revenue number.</b></p>
+
+  <div class="tshell" style="margin:clamp(13px,2vh,22px) 0 clamp(12px,1.7vh,18px)">
+  <span class="thint">scroll for all 20 rows</span>
+  <div class="tscroll">
+  <table>
+    <thead><tr><th>Company</th><th>What it replicates</th><th>Disclosed funding</th><th>Signal</th></tr></thead>
+    <tbody>
+      <tr class="rowgroup"><td colspan="4">Person replicas · enterprise / employee twins</td></tr>
+      <tr><td><strong>Viven</strong> <span class="lbl">Santa Clara</span></td><td>Employee knowledge twins; cross-team querying when someone is unavailable</td><td class="money">$35M seed · Oct 2025<br><span class="lbl">Khosla, Foundation, FPV, Operator Collective</span></td><td>Spun out of Eightfold. Genpact deployed across its executive leadership team in eight weeks. Text only. No voice, no video.</td></tr>
+      <tr><td><strong>Personal AI</strong> <span class="lbl">San Diego / NY</span></td><td>Per-user "Personal Language Model"; pivoted toward enterprise memory infrastructure</td><td class="money">~$16M+</td><td>Founded 2020, the oldest player here. The pivot to memory infrastructure is a tell about where the pull actually was.</td></tr>
+      <tr><td><strong>Sensay</strong> <span class="lbl">San Francisco</span></td><td>Replicas for onboarding, offboarding, knowledge preservation</td><td class="money">$3.4M token sale<br><span class="lbl">non-dilutive, Apr 2024</span></td><td>Funded outside venture entirely. Shipped an explicit "AI offboarding" product, the clearest statement of the enterprise value prop.</td></tr>
+      <tr><td><strong>Praxis AI</strong> <span class="lbl">Clemson, SC</span></td><td>"Human-first" twins for education and enterprise, RAG + LMS middleware</td><td class="money">~$110K</td><td>Selected to build Ray Kurzweil's twin. Effectively unfunded, a marker of how low the technical barrier now is.</td></tr>
+      <tr><td><strong>IgniteTech</strong> <span class="lbl">Texas</span></td><td>MyPersonas: employee clones from video, voice and writing, 160 languages</td><td class="money">corporate-funded</td><td>Launched at <strong>CES 2026</strong>. The category reached a consumer-electronics keynote before it reached an analyst report.</td></tr>
+
+      <tr class="rowgroup"><td colspan="4">Person replicas · creator / expert twins</td></tr>
+      <tr><td><strong>Delphi</strong> <span class="lbl">Miami</span></td><td>"Digital Minds" for coaches, authors, CEOs, grounded in their own content</td><td class="money">~$19M total<br><span class="lbl">$16M Series A, Sequoia, Jun 2025</span></td><td>2,000+ creators at $79–$349/mo. Anthropic's Anthology Fund on the cap table. The only player with a visible self-serve funnel.</td></tr>
+      <tr><td><strong>Uare.ai</strong> <span class="lbl">Palo Alto</span></td><td>"Human Life Model" trained only on the user's own data; professional expertise</td><td class="money">$10.3M seed · Nov 2025<br><span class="lbl">Mayfield, Boldstart</span></td><td>Pivoted off digital-legacy framing (ex-Eternos). Twin is owned and monetizable by the individual, not the employer.</td></tr>
+      <tr><td><strong>Coachvox</strong> <span class="lbl">London</span></td><td>Coach and consultant clones for lead generation</td><td class="money">bootstrapped</td><td>$99/mo DIY up to ~$16K done-for-you. Profitable, small, and proof the low end needs no capital.</td></tr>
+
+      <tr class="rowgroup"><td colspan="4">Adjacent · behaviour simulation (twins of populations, not persons)</td></tr>
+      <tr><td><strong>Simile</strong> <span class="lbl">Palo Alto</span></td><td>Agentic twins of populations to predict response to products, pricing, marketing</td><td class="money">$300M+ total<br><span class="lbl">$200M Series B at $2B post · Jul 30 2026</span></td><td>Stanford spinout. Series A to Series B in <strong>five months</strong>, revenue up 5×, Greenoaks and Index co-led, CVS Health Ventures participating. The category's real bellwether.</td></tr>
+
+      <tr class="rowgroup"><td colspan="4">Adjacent · embodiment infrastructure (the face and the voice)</td></tr>
+      <tr><td><strong>Synthesia</strong> <span class="lbl">London</span></td><td>Enterprise avatar video</td><td class="money">$200M at $4B<br><span class="lbl">GV, Nvidia, Accel</span></td><td><strong>$146M ARR.</strong> More revenue than every person-replica startup combined, several times over.</td></tr>
+      <tr><td><strong>Tavus</strong> <span class="lbl">Houston / SF</span></td><td>Real-time conversational video replicas via API</td><td class="money">~$64M<br><span class="lbl">$40M Series B, Nov 2025</span></td><td><strong>~$8M ARR.</strong> The only foundation-model builder in the stack, and the smallest revenue in this group.</td></tr>
+      <tr><td><strong>HeyGen</strong> <span class="lbl">Los Angeles</span></td><td>Avatar video generation, SMB-first</td><td class="money">~$66M raised</td><td>$95M ARR (Sept 2025) on two rounds. Capital efficiency the twin players have not shown.</td></tr>
+
+      <tr class="rowgroup"><td colspan="4">Adjacent · company brains (the same substrate, indexed by org)</td></tr>
+      <tr><td><strong>Glean</strong></td><td>Org-wide search, knowledge graph, agents</td><td class="money">$765M raised · $7.2B<br><span class="lbl">$150M Series F</span></td><td><strong>$300M ARR May 2026, +89% YoY.</strong> The proof that the buyer pays for the substrate, not the persona.</td></tr>
+      <tr><td><strong>Dust</strong></td><td>Multiplayer agent OS over company knowledge</td><td class="money">$40M Series B · May 2026<br><span class="lbl">Abstract, Sequoia, Snowflake, Datadog</span></td><td>3,000+ organizations, 300K agents deployed, zero churn claimed in 2025.</td></tr>
+      <tr><td><strong>ServiceNow ← Moveworks</strong></td><td>Enterprise assistant + search</td><td class="money">$2.85B · closed Dec 2025</td><td rowspan="2">Two acquisitions inside four months. The consolidation is happening at the <strong>brain</strong> layer, and that is where the exit comps are being set.</td></tr>
+      <tr><td><strong>Workday ← Sana</strong></td><td>AI knowledge, search, learning</td><td class="money">$1.1B</td></tr>
+      <tr><td><strong>Microsoft · Kyndryl</strong></td><td>Copilot Memory; "Digital Twin for the Workplace"</td><td class="money">incumbent</td><td>Copilot Memory reached GA across 2026. Kyndryl shipped a workplace twin in Apr 2026 on Azure, built on <em>simulated personas</em> rather than individual tracking.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  </div>
+
+  <div class="grid g3">
+    <div class="finding">
+      <div class="fh">Signal 01 · the ratio</div>
+      <p><strong>~$84M</strong> into every person-replica startup combined. <strong>$300M+</strong> into one company that simulates populations. <strong>$765M</strong> into one company that indexes organizations. Investors are funding the layers on either side of the individual.</p>
+    </div>
+    <div class="finding">
+      <div class="fh">Signal 02 · revenue lives elsewhere</div>
+      <p>The only ARR figures in this whole table come from avatar video and enterprise search. <strong>No person-replica company has published one.</strong> Delphi's ~2,000 creators at $79–$349/mo implies low single-digit millions: plausible, unconfirmed.</p>
+    </div>
+    <div class="finding">
+      <div class="fh">Signal 03 · the clock</div>
+      <p>Moveworks at $2.85B and Sana at $1.1B closed within four months. Copilot Memory went GA. Glean grew 89%. <strong>The substrate is consolidating now</strong>, which compresses the window for anything built on it.</p>
+    </div>
+  </div>
+
+  <div class="foot"><b>Method:</b> disclosed rounds from company announcements and press coverage; ARR figures from company statements and secondary market trackers, unaudited. Aggregator totals (Tracxn, Crunchbase, Dealroom) conflict on several entries: HQ and totals for Praxis and Tavus differ across sources.</div>
+</div></div>
+</section>
+
+<!-- ══════════════════════════ SLIDE 3 · ARCHITECTURE ══════════════════════════ -->
+<section class="slide" id="s3">
+<div class="fit"><div class="wrap">
+  <div class="shead">
+    <span class="snum">03</span>
+    <span class="skicker">Architecture</span>
+    <span class="spacer"></span>
+    <span class="skicker">Viven · Delphi · Tavus, deconstructed</span>
+  </div>
+
+  <h1>Nobody is training a model <em>of you</em>.</h1>
+  <p class="sub">"A customized LLM for each employee." "A 3D model of your mind." Both are marketing. Underneath, every production system in this category does the same thing: it grounds a <b>shared</b> frontier model in <b>per-person structured retrieval</b>. Fine-tuning and RL are explicitly experimental at Viven; Delphi states it does not train on user content at all.</p>
+
+  <div class="stack" style="margin:clamp(13px,2vh,22px) 0 clamp(12px,1.7vh,18px)">
+    <div class="layer">
+      <span class="ln">L7</span>
+      <div class="lname">Governance<span>the part enterprises actually buy</span></div>
+      <div class="ldesc">RBAC, full audit trails visible to the twin's owner as a social deterrent, PII withholding, on-prem / private VPC / BYOC deployment. Viven is sold on this layer, not the model layer.</div>
+    </div>
+    <div class="layer">
+      <span class="ln">L6</span>
+      <div class="lname">Embodiment<span>optional, and bought rather than built</span></div>
+      <div class="ldesc"><b>ElevenLabs</b> voice from a 30–60s sample. <b>Tavus CVI</b> for real-time video: Phoenix-4 hybrid Gaussian-diffusion at 40fps/1080p, Raven-1 perception, Sparrow-1 turn-taking at ~40ms granularity, sub-600ms end-to-end. Delphi is a Tavus customer. <b>Viven ships none of it</b>: text only, deliberately.</div>
+    </div>
+    <div class="layer">
+      <span class="ln">L5</span>
+      <div class="lname">Generation<span>a shared, off-the-shelf LLM</span></div>
+      <div class="ldesc">Delphi runs <code>Llama 3.3 70B</code> on Cerebras at ~2,100 tok/s. Viven's model is undisclosed. Tavus is bring-your-own via any OpenAI-compatible endpoint. <b>None of the three trains a language model on a person.</b></div>
+    </div>
+    <div class="layer hot">
+      <span class="ln">L4</span>
+      <div class="lname">Retrieval + authorization<span>the real moat</span></div>
+      <div class="ldesc">Delphi: <b>Pinecone, one namespace per mind</b>. 100M+ vectors across 12,000+ namespaces, &lt;100ms P95, ~20 qps. Viven: authorization enforced <b>inside</b> retrieval, via "pairwise context," where a VP's twin answers the CEO differently than a board member, because the graph decides what is reachable before the model sees anything.</div>
+    </div>
+    <div class="layer hot">
+      <span class="ln">L3</span>
+      <div class="lname">Person model<span>where "personality" actually lives</span></div>
+      <div class="ldesc">A <b>temporal knowledge graph</b>, not weights. Delphi's DMA1 is a self-adaptive temporally-indexed graph capturing how views evolve. Viven builds a dynamic per-employee graph from weak signals of expertise, a direct lineage from Eightfold's skills inference.</div>
+    </div>
+    <div class="layer">
+      <span class="ln">L2</span>
+      <div class="lname">Ingest &amp; normalize<span>the unglamorous bottleneck</span></div>
+      <div class="ldesc">Transcription (AssemblyAI, with speaker ID, since most uploaded content is audio or video), chunking, embedding, entity resolution. Delphi's <b>Interview Mode</b> has an agent interrogate the person to fill gaps: a data-acquisition trick, not a model trick, and the honest admission that most people don't have enough corpus.</div>
+    </div>
+    <div class="layer">
+      <span class="ln">L1</span>
+      <div class="lname">Sources<span>everything downstream is capped here</span></div>
+      <div class="ldesc">Enterprise: Gmail/Outlook, Slack/Teams, Drive/SharePoint, Jira, Confluence, Salesforce, meeting transcripts. Creator: YouTube, podcasts, books, Notion, blogs. Tavus needs only <b>1–2 minutes of video</b> for the face. The face was never the hard part.</div>
+    </div>
+  </div>
+
+  <div class="grid g2">
+    <div class="finding">
+      <div class="fh">The finding</div>
+      <p>Fidelity comes from <strong>retrieval and graph structure</strong>, not from a bespoke model. Tavus is the only company here training proprietary foundation models (Phoenix, Raven, Sparrow, Hummingbird), and every one of them renders or perceives a face. <strong>They know nothing about the person.</strong> The knowledge is always RAG.</p>
+    </div>
+    <div class="finding">
+      <div class="fh">The consequence</div>
+      <p>If the model isn't the moat, the moat is (a) <strong>ingestion access</strong>, (b) <strong>graph quality</strong>, (c) <strong>the authorization layer</strong>. Two of those three are, precisely and without modification, what a company brain is. That is not a coincidence, and it is the whole of slide 04.</p>
+    </div>
+  </div>
+
+  <div class="foot"><b>Caveat:</b> Viven has published no engineering blog, whitepaper or patent; the pairwise-context mechanism is described only in a single founder interview. Tavus's latency and benchmark figures are vendor-reported. Delphi's retrieval numbers come from a Pinecone customer case study. Treat L4 for Viven as <b>claimed architecture, not verified architecture.</b></div>
+</div></div>
+</section>
+
+<!-- ══════════════════════════ SLIDE 4 · TWINS vs COMPANY BRAIN ══════════════════════════ -->
+<section class="slide" id="s4">
+<div class="fit"><div class="wrap">
+  <div class="shead">
+    <span class="snum">04</span>
+    <span class="skicker">Digital twins vs Company brain</span>
+    <span class="spacer"></span>
+    <span class="skicker">The verdict</span>
+  </div>
+
+  <h1>Same machine. Different <em>unit of indexing</em>.</h1>
+  <p class="sub">A digital twin is a company brain with one extra column on the index and a persona on the output. Around <b>80% of the build is identical</b>, and the 20% that differs is not code. It is consent.</p>
+
+  <div class="conv" style="margin:clamp(14px,2vh,22px) 0 clamp(12px,1.6vh,18px)">
+    <div class="card tint-twin l">
+      <span class="tag t">Digital twin</span>
+      <h3 style="margin-bottom:8px">Indexed by person</h3>
+      <ul>
+        <li>Answers <em>"what would Alice say?"</em></li>
+        <li>First person, tone-matched</li>
+        <li>Consent per individual, revocable</li>
+        <li>Bought by a CHRO or exec sponsor</li>
+        <li>Priced per person twinned</li>
+        <li>Failure = misrepresenting a human</li>
+      </ul>
+    </div>
+    <div class="mid">
+      <span class="pct">~80%</span>
+      <p class="lbl" style="margin:6px 0 10px">of the stack is literally the same code</p>
+      <ul>
+        <li>Connectors and ingestion</li>
+        <li>Transcription, chunking, embedding</li>
+        <li>Knowledge graph construction</li>
+        <li><b style="color:var(--ink)">Permission-aware retrieval</b></li>
+        <li>Citation and grounding discipline</li>
+        <li>Shared frontier LLM + audit trail</li>
+      </ul>
+    </div>
+    <div class="card tint-brain r">
+      <span class="tag b">Company brain</span>
+      <h3 style="margin-bottom:8px">Indexed by organization</h3>
+      <ul>
+        <li>Answers <em>"what does the company know?"</em></li>
+        <li>Neutral, institutional voice</li>
+        <li>Consent granted once by IT, at org level</li>
+        <li>Bought by a CIO or knowledge ops</li>
+        <li>Priced per org seat</li>
+        <li>Failure = a wrong answer</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-bottom:clamp(12px,1.8vh,18px)">
+    <div class="finding">
+      <div class="fh">Could both be one product? Yes, and one of them already is</div>
+      <p>Viven's headline feature is not a twin feature. <strong>"Pairwise context and privacy" is a company brain whose retrieval is authorization-aware, wearing a person as its interface.</strong> Strip the persona and you have Glean with a better permission model. Add a <code style="font-family:var(--mono);font-size:.9em;color:var(--accent)">person</code> axis and a tone layer to a brain and you have shipped a twin. What does not merge is consent: an org can grant IT access to its wiki, but <strong>it cannot grant your voice.</strong> AB 2602 is the only law on the books, there is no federal framework, and Gartner's analysts are floating NIL-style royalties. That gap is the product boundary, not the architecture.</p>
+    </div>
+    <div class="card" style="border-color:rgba(124,156,255,.3);background:linear-gradient(180deg,rgba(124,156,255,.07),var(--bg-2))">
+      <span class="tag a">Where GBrain / company-brain-ui sits</span>
+      <p style="font-size:clamp(12px,1.02vw,14px)">The prototype makes exactly two claims: <b>a citation per claim, stopping where the evidence stops</b>, and <b>permissions in the database rather than a post-retrieval filter</b>. Those are the two claims Viven raised $35M on, minus the person axis. The teammate switcher, where Alice, Bob and Carol ask one question and get three answers with the out-of-scope source <em>named</em> rather than silently dropped, is that same demo, already built. <b>The twin is one</b> <code style="font-family:var(--mono);font-size:.9em;color:var(--accent)">GROUP BY</code> <b>away; the citation discipline was the harder half.</b></p>
+    </div>
+  </div>
+
+  <h2>The call</h2>
+  <div class="calls">
+    <div class="call">
+      <div class="cn">01</div>
+      <h4>Build the brain. Ship the twin as a view of it.</h4>
+      <p>The brain is the substrate and the only layer with proven willingness to pay ($300M ARR at Glean). The twin is what makes a permission model legible in ten seconds: a marketing asset, not an architecture.</p>
+    </div>
+    <div class="call">
+      <div class="cn">02</div>
+      <h4>Don't build embodiment.</h4>
+      <p>Voice and video are API calls to ElevenLabs and Tavus, and Delphi, the most consumer-facing player here, buys both. Tavus at ~$8M ARR against Synthesia's $146M says the money isn't in real-time faces anyway.</p>
+    </div>
+    <div class="call">
+      <div class="cn">03</div>
+      <h4>The open wedge is consent, not retrieval.</h4>
+      <p>Nobody has shipped "the brain belongs to the company, the twin belongs to the person" as a <em>primitive</em>: revocation, portability on exit, an audit log the individual owns. Uare.ai gestures at it; no enterprise player has built it.</p>
+    </div>
+    <div class="call">
+      <div class="cn">04</div>
+      <h4>The risk: retrieval alone is one quarter of work for Glean.</h4>
+      <p>If the twin is only a view of the brain, an incumbent ships it in a quarter. Copilot Memory is GA, Moveworks and Sana are absorbed, Glean compounds at 89%. Build what a seat-priced, org-indexed incumbent structurally cannot copy.</p>
+    </div>
+  </div>
+
+  <div class="foot"><b>Bottom line:</b> one product, two surfaces, is the right build. But the differentiator is the half nobody is building: the individual's side of the permission boundary. Everything else in this deck is commodity within eighteen months.</div>
+</div></div>
+</section>
+
+</div><!-- /deck -->
+
+<div class="hint" id="hint">← → to navigate · S for sources</div>
+
+<div class="chrome">
+  <span class="brand"><b>Digital Twins</b> · market, players, architecture, and the company brain question</span>
+  <div class="dots" id="dots"></div>
+  <div class="navbtns">
+    <button class="nb src" id="srcBtn">Sources</button>
+    <button class="nb" id="prev" aria-label="Previous slide">←</button>
+    <span class="counter"><b id="cur">01</b> / 04</span>
+    <button class="nb" id="next" aria-label="Next slide">→</button>
+  </div>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer">
+  <button class="dclose" id="dclose" aria-label="Close">✕</button>
+  <h3>Sources</h3>
+  <p class="dsub">Primary announcements and reporting, retrieved 5 August 2026. Figures unverified beyond the linked source.</p>
+
+  <h4>Market sizing</h4>
+  <ol>
+    <li><a href="https://www.gminsights.com/industry-analysis/digital-twin-market" target="_blank" rel="noopener">Global Market Insights</a> · digital twin market, $26.4B 2026, 41.7% CAGR</li>
+    <li><a href="https://www.fortunebusinessinsights.com/digital-twin-market-106246" target="_blank" rel="noopener">Fortune Business Insights</a> · $33.97B 2026, 35.4% CAGR</li>
+    <li><a href="https://www.precedenceresearch.com/ai-avatar-market" target="_blank" rel="noopener">Precedence Research</a> · AI avatar market, $12.9B 2026</li>
+    <li><a href="https://www.marketresearchfuture.com/reports/digital-human-ai-avatars-market-12224" target="_blank" rel="noopener">Market Research Future</a> · digital human / AI avatars to 2035</li>
+    <li><a href="https://www.gartner.com/reviews/market/digital-twin-of-an-organization-platforms" target="_blank" rel="noopener">Gartner</a> · Digital Twin of an Organization platforms market</li>
+    <li><a href="https://news.sap.com/2026/07/sap-leader-gartner-magic-quadrant-digital-twin-organization-platforms/" target="_blank" rel="noopener">SAP</a> and <a href="https://www.celonis.com/news/press/celonis-named-a-leader-in-2026-gartner-magic-quadrant-for-digital-twin-of-an-organization-platforms" target="_blank" rel="noopener">Celonis</a> · first-ever DTO Magic Quadrant, 2026</li>
+    <li><a href="https://www.mordorintelligence.com/industry-reports/knowledge-management-software-market" target="_blank" rel="noopener">Mordor Intelligence</a> · knowledge management software, $16.2B 2026</li>
+  </ol>
+
+  <h4>Person replicas</h4>
+  <ol start="8">
+    <li><a href="https://www.prnewswire.com/news-releases/viven-emerges-from-stealth-with-35m-in-funding-to-bring-ai-digital-twins-to-the-enterprise-302585135.html" target="_blank" rel="noopener">PR Newswire</a> · Viven $35M seed, 15 Oct 2025</li>
+    <li><a href="https://siliconangle.com/2025/10/15/ai-startup-viven-raises-35m-create-digital-twins-fill-absent-team-members/" target="_blank" rel="noopener">SiliconANGLE</a> · Viven launch coverage</li>
+    <li><a href="https://eightfold.ai/blog/meet-viven-ai/" target="_blank" rel="noopener">Eightfold AI</a> · Viven as co-venture</li>
+    <li><a href="https://www.delphi.ai/blog/delphi-raises-16m-series-a-from-sequoia" target="_blank" rel="noopener">Delphi</a> · $16M Series A led by Sequoia, Jun 2025</li>
+    <li><a href="https://www.fastcompany.com/91356476/delphi-ai-digital-mind" target="_blank" rel="noopener">Fast Company</a> · Delphi "digital minds"</li>
+    <li><a href="https://www.techbuzz.ai/articles/eternos-pivots-to-uare-ai-raises-10-3m-for-personal-ai-clones" target="_blank" rel="noopener">TechBuzz</a> · Eternos → Uare.ai, $10.3M seed</li>
+    <li><a href="https://tracxn.com/d/companies/sensay/__S-7yhRoxkszbTR5EUpKF3wWTrGKjI7mJgwbnQu1JXgQ" target="_blank" rel="noopener">Tracxn</a> · Sensay profile and $3.4M token sale</li>
+    <li><a href="https://euronews.com/next/2026/01/07/ai-software-that-can-create-digital-clones-of-employees-unveiled-at-ces-2026" target="_blank" rel="noopener">Euronews</a> · IgniteTech MyPersonas at CES 2026</li>
+  </ol>
+
+  <h4>Behaviour simulation &amp; embodiment</h4>
+  <ol start="16">
+    <li><a href="https://techcrunch.com/2026/07/30/synthetic-user-startup-simile-raises-200m-at-2b-valuation-5-months-after-100m-series-a/" target="_blank" rel="noopener">TechCrunch</a> · Simile $200M at $2B, 30 Jul 2026</li>
+    <li><a href="https://www.finsmes.com/2026/07/simile-raises-200m-in-series-b-funding-at-2-billion-valuation.html" target="_blank" rel="noopener">FinSMEs</a> · Simile Series B detail, co-leads and participants</li>
+    <li><a href="https://sacra.com/c/tavus/" target="_blank" rel="noopener">Sacra</a> · Tavus funding and ~$8M ARR</li>
+    <li><a href="https://sacra.com/c/heygen/" target="_blank" rel="noopener">Sacra</a> · HeyGen $95M ARR, Sept 2025</li>
+    <li><a href="https://tracxn.com/d/companies/heygen/__P9ntSZJZGrYxYW3EjY13X-Z2YEpHcCPx1Glu86tKclA" target="_blank" rel="noopener">Tracxn</a> · Synthesia $200M at $4B; $146M ARR</li>
+  </ol>
+
+  <h4>Company brains &amp; incumbents</h4>
+  <ol start="21">
+    <li><a href="https://futurumgroup.com/insights/glean-doubles-arr-to-200m-can-its-knowledge-graph-beat-copilot/" target="_blank" rel="noopener">Futurum Group</a> · Glean ARR trajectory</li>
+    <li><a href="https://valueaddvc.com/blog/glean-valuation-revenue-2026-300m-arr-enterprise-ai-search" target="_blank" rel="noopener">ValueAdd VC</a> · Glean $7.2B, $300M ARR May 2026</li>
+    <li><a href="https://tech.eu/2026/05/18/dust-raises-40m-series-b-to-build-the-multiplayer-operating-system-for-enterprise-ai/" target="_blank" rel="noopener">Tech.eu</a> · Dust $40M Series B, May 2026</li>
+    <li><a href="https://www.moveworks.com/us/en/company/news/press-releases/servicenow-completes-acquisition-of-moveworks" target="_blank" rel="noopener">Moveworks</a> · ServiceNow acquisition completed, $2.85B</li>
+    <li><a href="https://joshbersin.com/2025/09/workday-acquires-sana-to-transform-its-learning-platform-and-much-more/" target="_blank" rel="noopener">Josh Bersin</a> · Workday acquires Sana, ~$1.1B</li>
+    <li><a href="https://techcommunity.microsoft.com/blog/microsoft365copilotblog/introducing-copilot-memory-a-more-productive-and-personalized-ai-for-the-way-you/4432059" target="_blank" rel="noopener">Microsoft</a> · Copilot Memory; GA across 2026</li>
+    <li><a href="https://www.kyndryl.com/us/en/about-us/news/2026/04/ai-digital-twin-for-workplace" target="_blank" rel="noopener">Kyndryl</a> · Digital Twin for the Workplace, 9 Apr 2026</li>
+  </ol>
+
+  <h4>Employment, consent &amp; ownership</h4>
+  <ol start="28">
+    <li><a href="https://www.hcamag.com/us/specialization/hr-technology/digital-twins-are-coming-is-hr-ready/578124" target="_blank" rel="noopener">HRD</a> · Gartner CHRO trend, 95% / 80% adoption stats, NIL-style royalty proposal</li>
+    <li><a href="https://www.gartner.com/en/newsroom/press-releases/2026-01-12-gartner-identifies-the-top-future-of-work-trends-for-chros-in-2026" target="_blank" rel="noopener">Gartner</a> · Top Future of Work Trends for CHROs, 2026</li>
+    <li><a href="https://gowlingwlg.com/en/insights-resources/articles/2026/emerging-employment-law-issues-for-employers" target="_blank" rel="noopener">Gowling WLG</a> · who owns your digital twin, employment law</li>
+    <li><a href="https://www.techpolicy.press/digital-twins-demand-a-new-social-contract/" target="_blank" rel="noopener">Tech Policy Press</a> · consent, AB 2602, absence of a federal framework</li>
+  </ol>
+
+  <h4>Architecture</h4>
+  <ol start="32">
+    <li>Delphi retrieval architecture · Pinecone customer case study (100M+ vectors, 12,000+ namespaces, &lt;100ms P95)</li>
+    <li>Delphi inference · Cerebras customer engineering blog (Llama 3.3 70B, ~2,100 tok/s)</li>
+    <li>Tavus research blog · Phoenix-4, Raven-1, Sparrow-1, Hummingbird-0; <a href="https://docs.tavus.io" target="_blank" rel="noopener">docs.tavus.io</a></li>
+    <li>Viven architecture · diginomica interview with Ashutosh Garg, the only technical primary source</li>
+  </ol>
+
+  <p class="dsub" style="margin-top:24px;padding-top:16px;border-top:1px solid var(--line)">Prepared 5 August 2026. Two prior research memos in this folder supplied the competitive and architectural baselines; funding, ARR, market and regulatory figures were re-verified against live sources for this deck.</p>
+</aside>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var dotsEl = document.getElementById('dots');
+  var curEl  = document.getElementById('cur');
+  var prevB  = document.getElementById('prev');
+  var nextB  = document.getElementById('next');
+  var hint   = document.getElementById('hint');
+  var drawer = document.getElementById('drawer');
+  var scrim  = document.getElementById('scrim');
+  var i = 0, dots = [];
+
+  // --- fit each slide's content to the viewport -------------------------
+  // Scale a slide down until it fits one screen. Below MIN_SCALE the text stops
+  // being readable, so at that point stop shrinking and let the slide scroll.
+  var MIN_SCALE = 0.72;
+  function fitSlide(s){
+    var fit = s.querySelector('.fit');
+    if (!fit) return;
+    // Clear the previous fit first, so the height we read is the natural one for
+    // the current viewport rather than the one we last scaled it to.
+    fit.style.transform = 'none';
+    fit.style.marginBottom = '0';
+    var cs = getComputedStyle(s);
+    var avail = s.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+    var h = fit.offsetHeight;           // reading this forces the reflow
+    if (!h || avail <= 0) return;
+    var raw = avail / h;
+    if (raw >= 0.999){ s.style.overflowY = 'hidden'; return; }
+    var k = Math.max(MIN_SCALE, raw);
+    fit.style.transform = 'scale(' + k.toFixed(4) + ')';
+    // A scaled box still occupies its unscaled height, so pull the slack back and
+    // the slide stops short of empty space. Only scroll if we hit the floor.
+    fit.style.marginBottom = (-(h * (1 - k))).toFixed(1) + 'px';
+    s.style.overflowY = (raw < MIN_SCALE) ? 'auto' : 'hidden';
+  }
+  function fitAll(){ slides.forEach(fitSlide); }
+  var rt, raf;
+  // A viewport change lands in stages: the resize event can arrive before the
+  // vh/vw clamps have relaid out. Measure on the next frame, then again once
+  // things have settled.
+  function refit(){
+    if (raf) cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(function(){ raf = requestAnimationFrame(fitAll); });
+    clearTimeout(rt); rt = setTimeout(fitAll, 260);
+  }
+  window.addEventListener('resize', refit);
+  window.addEventListener('load', refit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(refit);
+  if (window.ResizeObserver) new ResizeObserver(refit).observe(document.documentElement);
+
+  slides.forEach(function(s, n){
+    var b = document.createElement('button');
+    b.className = 'dot' + (n === 0 ? ' on' : '');
+    b.setAttribute('aria-label', 'Slide ' + (n+1));
+    b.addEventListener('click', function(){ go(n); });
+    dotsEl.appendChild(b);
+    dots.push(b);
+  });
+
+  function go(n){
+    n = Math.max(0, Math.min(slides.length - 1, n));
+    if (n === i) return;
+    slides[i].classList.remove('active');
+    dots[i].classList.remove('on');
+    i = n;
+    slides[i].classList.add('active');
+    slides[i].scrollTop = 0;
+    fitSlide(slides[i]);
+    dots[i].classList.add('on');
+    curEl.textContent = String(i + 1).padStart(2, '0');
+    prevB.disabled = (i === 0);
+    nextB.disabled = (i === slides.length - 1);
+    hint.classList.add('gone');
+    if (history.replaceState) history.replaceState(null, '', '#' + (i + 1));
+  }
+
+  function toggleDrawer(open){
+    var isOpen = (open === undefined) ? !drawer.classList.contains('open') : open;
+    drawer.classList.toggle('open', isOpen);
+    scrim.classList.toggle('on', isOpen);
+    hint.classList.add('gone');
+  }
+
+  prevB.addEventListener('click', function(){ go(i - 1); });
+  nextB.addEventListener('click', function(){ go(i + 1); });
+  document.getElementById('srcBtn').addEventListener('click', function(){ toggleDrawer(); });
+  document.getElementById('dclose').addEventListener('click', function(){ toggleDrawer(false); });
+  scrim.addEventListener('click', function(){ toggleDrawer(false); });
+
+  document.addEventListener('keydown', function(e){
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var k = e.key;
+    if (k === 'Escape'){ toggleDrawer(false); return; }
+    if (k === 's' || k === 'S'){ toggleDrawer(); e.preventDefault(); return; }
+    if (drawer.classList.contains('open')) return;
+    if (k === 'ArrowRight' || k === 'PageDown' || k === ' '){ go(i + 1); e.preventDefault(); }
+    else if (k === 'ArrowLeft' || k === 'PageUp'){ go(i - 1); e.preventDefault(); }
+    else if (k === 'Home'){ go(0); e.preventDefault(); }
+    else if (k === 'End'){ go(slides.length - 1); e.preventDefault(); }
+    else if (k >= '1' && k <= String(slides.length)){ go(parseInt(k, 10) - 1); e.preventDefault(); }
+  });
+
+  // touch swipe
+  var x0 = null;
+  document.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 60) go(dx < 0 ? i + 1 : i - 1);
+    x0 = null;
+  }, {passive:true});
+
+  prevB.disabled = true;
+  fitAll();
+  var start = parseInt((location.hash || '').replace('#',''), 10);
+  if (start >= 1 && start <= slides.length) go(start - 1);
+  setTimeout(function(){ hint.classList.add('gone'); }, 7000);
+})();
+</script>
+</body>
+</html>
