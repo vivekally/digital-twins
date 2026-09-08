@@ -184,6 +184,13 @@ tbody tr:hover td{background:rgba(255,255,255,.022)}
 .conv .r li::before{background:var(--brain)}
 .pct{font-family:var(--mono);font-size:clamp(20px,2.4vw,30px);font-weight:600;letter-spacing:-.03em;color:var(--accent);display:block;line-height:1}
 
+/* ---------- evidence badges ---------- */
+.ev{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;padding:2px 7px;border-radius:5px;border:1px solid;font-weight:600;margin-right:7px;vertical-align:1px;white-space:nowrap}
+.ev::before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor;flex:none}
+.ev.p1{color:var(--pos);border-color:rgba(82,217,138,.35);background:rgba(82,217,138,.08)}
+.ev.p2{color:var(--twin);border-color:rgba(245,165,36,.35);background:rgba(245,165,36,.08)}
+.ev.p3{color:var(--ink-3);border-color:var(--line-2);background:rgba(255,255,255,.03)}
+
 /* ---------- verdict ---------- */
 .calls{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1.2vw,16px)}
 .call{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:clamp(13px,1.4vw,18px);position:relative;overflow:hidden}
@@ -463,7 +470,7 @@ tbody tr:hover td{background:rgba(255,255,255,.022)}
     </div>
     <div class="finding">
       <div class="fh">The consequence</div>
-      <p>If the model isn't the moat, the moat is (a) <strong>ingestion access</strong>, (b) <strong>graph quality</strong>, (c) <strong>the authorization layer</strong>. Two of those three are, precisely and without modification, what a company brain is. That is not a coincidence, and it is the whole of slide 04.</p>
+      <p>If the model isn't the moat, the moat is (a) <strong>ingestion access</strong>, (b) <strong>graph quality</strong>, (c) <strong>the authorization layer</strong>. Two of those three are, precisely and without modification, what a company brain is. That is not a coincidence, and it is the whole of slide 06.</p>
     </div>
   </div>
 
@@ -471,11 +478,167 @@ tbody tr:hover td{background:rgba(255,255,255,.022)}
 </div></div>
 </section>
 
-<!-- ══════════════════════════ SLIDE 4 · TWINS vs COMPANY BRAIN ══════════════════════════ -->
+<!-- ══════════════════════════ SLIDE 4 · EMPLOYEE USE CASES ══════════════════════════ -->
 <section class="slide" id="s4">
 <div class="fit"><div class="wrap">
   <div class="shead">
     <span class="snum">04</span>
+    <span class="skicker">Employee use cases</span>
+    <span class="spacer"></span>
+    <span class="skicker">What is sold vs what is evidenced</span>
+  </div>
+
+  <h1>Six use cases. <em>One</em> proof point.</h1>
+  <p class="sub">Slide 02 compresses Viven to one line, "cross-team querying when someone is unavailable." That is one of six use cases it sells. Breadth is not evidence: <b>every outcome claim in this category traces back to a single named account</b>, and that account evidences only the first two.</p>
+
+  <div class="stack" style="margin:clamp(13px,2vh,22px) 0 clamp(11px,1.6vh,18px)">
+    <div class="layer hot">
+      <span class="ln">01</span>
+      <div class="lname">Scale experts<span>the headline</span></div>
+      <div class="ldesc"><span class="ev p1">Reference deployment</span> A teammate queries an expert's twin <b>when that person is unavailable or overbooked</b>. Confirmed verbatim in the launch release: twins "answer questions from teammates when they're unavailable."</div>
+    </div>
+    <div class="layer hot">
+      <span class="ln">02</span>
+      <div class="lname">Continuity and handover<span>the strongest story</span></div>
+      <div class="ldesc"><span class="ev p1">Reference deployment</span> Institutional memory survives a role change. A Genpact Chief of Staff describes a predecessor's twin turning <b>a months-long handover into days</b>. This is the same job Sensay sells as "AI offboarding."</div>
+    </div>
+    <div class="layer">
+      <span class="ln">03</span>
+      <div class="lname">Meeting prep and distillation<span>missing from slide 02</span></div>
+      <div class="ldesc"><span class="ev p2">Claimed in primary source</span> Twins "brief users before meetings, distill conversations across channels," verbatim from the 15 Oct 2025 release. A first-party claim rather than marketing copy, <b>but no deployment evidences it</b>.</div>
+    </div>
+    <div class="layer">
+      <span class="ln">04</span>
+      <div class="lname">Scale you<span>the individual surface</span></div>
+      <div class="ldesc"><span class="ev p2">Founder-dogfooded</span> Your own twin absorbs repeat questions. The founder reports using his for brainstorming, investor replies, meeting prep and escalations: <b>self-reported single-user evidence</b>, the weakest class of proof here.</div>
+    </div>
+    <div class="layer">
+      <span class="ln">05</span>
+      <div class="lname">Team and account twins<span>aggregate, not individual</span></div>
+      <div class="ldesc"><span class="ev p3">No named account</span> One coherent twin over a department's or account team's knowledge, so a CEO can query a global account team before a meeting. A first-class product surface with <b>no customer named against it</b>.</div>
+    </div>
+    <div class="layer">
+      <span class="ln">06</span>
+      <div class="lname">Agentic workflows<span>retrieval to action</span></div>
+      <div class="ldesc"><span class="ev p3">Least evidenced</span> "Turns conversation into action, triggering updates, approvals, handoffs." The one use case that leaves retrieval behind, which is where durable value would sit, and <b>the one with the least behind it</b>.</div>
+    </div>
+  </div>
+
+  <div class="tscroll" style="margin-bottom:clamp(11px,1.6vh,18px)">
+  <table>
+    <thead><tr><th>Vendor</th><th>Leads with</th><th>Also sells</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Viven</strong></td><td>Query an unavailable expert</td><td>Continuity, meeting prep, team twins, agentic workflows</td></tr>
+      <tr><td><strong>Sensay</strong></td><td>AI offboarding</td><td>Onboarding, knowledge preservation, voice capture of leavers</td></tr>
+      <tr><td><strong>IgniteTech</strong></td><td>Employee clones, 160+ languages</td><td>HR, training, onboarding, repetitive-question load</td></tr>
+      <tr><td><strong>Praxis AI</strong></td><td>Human-first twins for education</td><td>Enterprise, IP-vault governance, RAG + LMS middleware</td></tr>
+      <tr><td><strong>Personal AI</strong></td><td>Per-user "Personal Language Model"</td><td>Pivoted to enterprise memory infrastructure, role personas</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="grid g2">
+    <div class="finding">
+      <div class="fh">The finding · convergence, not differentiation</div>
+      <p>All five converge on one primitive: <strong>capture tacit knowledge, then let other people query it.</strong> Slide 02 files onboarding under Sensay and IgniteTech, yet Viven's best testimonial is a handover story. <strong>Nobody owns a use case. They own an ingestion surface and a buyer.</strong></p>
+    </div>
+    <div class="finding">
+      <div class="fh">The consequence · evidence is the scarce input</div>
+      <p>Two surfaces have a reference deployment, one has a first-party claim, three have neither. The category's only repeated hard metric is a <strong>deployment speed, not an outcome</strong>. <strong>The first credible outcome number here is worth more than the next funding round.</strong></p>
+    </div>
+  </div>
+
+  <div class="foot"><b>Evidence note:</b> the eight-week Genpact rollout is the only widely repeated hard metric in this category, and it carries no published outcome data. The WSJ piece Viven features quantifies <b>Reid Hoffman's twin and Greif's CHRO twin (~3,300 employee interactions)</b>; neither is a Viven deployment. Do not read those figures as Viven's.</div>
+</div></div>
+</section>
+
+<!-- ══════════════════════════ SLIDE 5 · THE BUYER ══════════════════════════ -->
+<section class="slide" id="s5">
+<div class="fit"><div class="wrap">
+  <div class="shead">
+    <span class="snum">05</span>
+    <span class="skicker">The buyer</span>
+    <span class="spacer"></span>
+    <span class="skicker">Who signs, who blocks</span>
+  </div>
+
+  <h1>Everyone files this under <em>HR</em>. Nobody sells it there.</h1>
+  <p class="sub">The lineage is HR tech: Viven was incubated at Eightfold, the loudest analyst voice is Josh Bersin, and Gartner filed replicating employees as a <b>2026 CHRO trend</b>. Yet across nine named customer voices, the launch release and the entire job board, <b>there is not one HR buyer.</b></p>
+
+  <div class="stack" style="margin:clamp(13px,2vh,22px) 0 clamp(11px,1.6vh,18px)">
+    <div class="layer hot">
+      <span class="ln">01</span>
+      <div class="lname">Economic buyer<span>signs the cheque</span></div>
+      <div class="ldesc"><b>CEO and the executive office</b>, released through a Chief of Staff, COO or transformation officer. The release opens on the CEO's problem verbatim: "every CEO faces the same existential challenge."</div>
+    </div>
+    <div class="layer hot">
+      <span class="ln">02</span>
+      <div class="lname">Champion<span>drives it internally</span></div>
+      <div class="ldesc"><b>Chief of Staff to the CEO</b> is the archetype, and the most vivid testimonial on the site belongs to one. Then the CEO directly, then line-of-business leaders once it expands past the leadership tier.</div>
+    </div>
+    <div class="layer">
+      <span class="ln">03</span>
+      <div class="lname">Technical approver<span>can stop the deal</span></div>
+      <div class="ldesc"><b>CIO, transformation officer, enterprise architecture, security.</b> They vet VPC and on-prem, RBAC and audit trails. Foundation Capital names the gate: "a product that IT departments will approve."</div>
+    </div>
+    <div class="layer">
+      <span class="ln">04</span>
+      <div class="lname">Economic validator<span>builds the case</span></div>
+      <div class="ldesc"><b>CFO.</b> The ROI testimonial is a CFO's, and it is framed in cost terms rather than capability terms: "faster decisions, fewer tools, less support overhead."</div>
+    </div>
+    <div class="layer">
+      <span class="ln">05</span>
+      <div class="lname">End users<span>not the buyer</span></div>
+      <div class="ldesc">Employees whose twins are built, and those querying colleagues' twins. Note the asymmetry: <b>the people supplying the training data are not the people buying</b>, which is exactly where the consent problem originates.</div>
+    </div>
+    <div class="layer">
+      <span class="ln">06</span>
+      <div class="lname">Blockers<span>the real deal risk</span></div>
+      <div class="ldesc"><b>Legal, privacy, security</b>, and in the EU works councils. Twins built from mail and chat raise consent, likeness and IP ownership, and <b>nobody has answered who owns a twin after the person leaves</b>.</div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-bottom:clamp(11px,1.6vh,18px)">
+    <div class="card tint-twin">
+      <span class="tag t">Evidence · the testimonial roster</span>
+      <h3>Nine named voices. Zero from HR.</h3>
+      <p>Counted off viven.ai: three CEOs or founder-CEOs, a Chief of Staff, two IT and transformation leaders, a CFO, a Chief Growth Officer, an analyst co-founder. For a company spun out of an HR-tech unicorn, <b>that absence is a positioning decision, not an oversight</b>.</p>
+    </div>
+    <div>
+      <div class="tscroll">
+      <table>
+        <thead><tr><th>Product</th><th>Economic buyer</th><th>Owner</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Viven</strong></td><td>CEO / executive office</td><td>Exec office, IT approves</td></tr>
+          <tr><td><strong>Glean</strong></td><td>CIO / IT</td><td>IT, deployed horizontally</td></tr>
+          <tr><td><strong>Sana</strong> <span class="lbl">Workday</span></td><td>HR / People</td><td>HR, extending to finance</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="lbl" style="margin-top:9px">Service-shaped tools sit with IT, learning-shaped tools sit with HR. Viven sits higher, at the leadership tier, with IT approving. Gartner expects blended HR-IT teams at 30% of organisations by 2029. That would move this. It has not moved yet.</p>
+    </div>
+  </div>
+
+  <div class="grid g2">
+    <div class="finding">
+      <div class="fh">Why it lands at the CEO, not the CHRO</div>
+      <p>An HR buyer purchases a <strong>workforce programme</strong>: rollout, adoption, policy. This is sold as <strong>executive leverage</strong> instead, top-down, and the reference deployment is a leadership rollout rather than a company-wide one. The only GTM role on the job board is one Account Executive, skills listed as B2B sales and enterprise software. <strong>No CHRO mandate appears anywhere.</strong></p>
+    </div>
+    <div class="finding">
+      <div class="fh">Tripwires that would falsify this</div>
+      <p>A "for HR leaders" page appearing; GTM hires with a CHRO mandate; sponsorship of HR Tech, UNLEASH or SHRM; or CHRO testimonials joining the roster. Any one means the buyer is moving to HR. <strong>The opposite signal</strong>, compliance sales engineers and published SOC 2 / DPA collateral, would confirm the executive-plus-IT centre is permanent.</p>
+    </div>
+  </div>
+
+  <div class="foot"><b>Caveat:</b> nearly all of this is first-party, from Viven's site, its 15 Oct 2025 release and investor commentary, so it evidences <b>marketed positioning, not where budget provably sits</b>. Viven is post-seed and its own AE listing says the ICP is still being defined, so this buyer is a moving target. Round lead is reported both ways: the release names four investors without designating one, while Foundation Capital states it led.</div>
+</div></div>
+</section>
+
+<!-- ══════════════════════════ SLIDE 6 · TWINS vs COMPANY BRAIN ══════════════════════════ -->
+<section class="slide" id="s6">
+<div class="fit"><div class="wrap">
+  <div class="shead">
+    <span class="snum">06</span>
     <span class="skicker">Digital twins vs Company brain</span>
     <span class="spacer"></span>
     <span class="skicker">The verdict</span>
@@ -572,7 +735,7 @@ tbody tr:hover td{background:rgba(255,255,255,.022)}
   <div class="navbtns">
     <button class="nb src" id="srcBtn">Sources</button>
     <button class="nb" id="prev" aria-label="Previous slide">←</button>
-    <span class="counter"><b id="cur">01</b> / 04</span>
+    <span class="counter"><b id="cur">01</b> / <b id="tot">06</b></span>
     <button class="nb" id="next" aria-label="Next slide">→</button>
   </div>
 </div>
@@ -642,6 +805,18 @@ tbody tr:hover td{background:rgba(255,255,255,.022)}
     <li>Viven architecture · diginomica interview with Ashutosh Garg, the only technical primary source</li>
   </ol>
 
+  <h4>Use cases &amp; buyer</h4>
+  <ol start="36">
+    <li><a href="https://viven.ai/" target="_blank" rel="noopener">viven.ai</a> · product surfaces (Scale Experts, Scale You, Team Twin, Personas, Agentic Workflows) and the full testimonial roster, read 8 Sep 2026</li>
+    <li><a href="https://www.prnewswire.com/news-releases/viven-emerges-from-stealth-with-35m-in-funding-to-bring-ai-digital-twins-to-the-enterprise-302585135.html" target="_blank" rel="noopener">PR Newswire</a> · launch release, 15 Oct 2025. Source for "brief users before meetings, distill conversations across channels", the eight-week Genpact leadership rollout, the CEO framing, and pairwise privacy / RBAC / audit trails</li>
+    <li><a href="https://careers.viven.ai/careers" target="_blank" rel="noopener">careers.viven.ai</a> · open roles read 8 Sep 2026: Account Executive, Agent Systems Engineer, Research Engineer, Systems Engineer. Listed skills are B2B sales and enterprise software, with no HR-tech or CHRO mandate</li>
+    <li><a href="https://foundationcapital.com/viven-digital-twins-for-the-enterprise/" target="_blank" rel="noopener">Foundation Capital</a> · investment thesis, "a product that IT departments will approve and employees will use"; also the source of the contested round-lead attribution</li>
+    <li><a href="https://sensay.io/" target="_blank" rel="noopener">Sensay</a> · AI offboarding positioning and departing-employee voice capture</li>
+    <li><a href="https://www.euronews.com/next/2026/01/07/ai-software-that-can-create-digital-clones-of-employees-unveiled-at-ces-2026" target="_blank" rel="noopener">Euronews</a> · IgniteTech MyPersonas, 160+ languages, owner-joining, CES 2026</li>
+    <li><a href="https://www.wsj.com/articles/ai-digital-twin-work-productivity" target="_blank" rel="noopener">WSJ</a> · "Too Much Work to Do? Have Your Digital Twin Handle It", ~May 2026. Quantifies Reid Hoffman and Greif, <b>not</b> Viven. Paywalled</li>
+    <li><a href="https://www.gartner.com/en/newsroom/press-releases/2025-08-11-gartner-says-30-percent-of-organizations-will-have-blended-hr-and-it-teams-by-2029" target="_blank" rel="noopener">Gartner</a> · 30% of organisations to form blended HR-IT teams by 2029</li>
+  </ol>
+
   <p class="dsub" style="margin-top:24px;padding-top:16px;border-top:1px solid var(--line)">Prepared 5 August 2026. Two prior research memos in this folder supplied the competitive and architectural baselines; funding, ARR, market and regulatory figures were re-verified against live sources for this deck.</p>
 </aside>
 
@@ -656,6 +831,9 @@ tbody tr:hover td{background:rgba(255,255,255,.022)}
   var drawer = document.getElementById('drawer');
   var scrim  = document.getElementById('scrim');
   var i = 0, dots = [];
+
+  var totEl = document.getElementById('tot');
+  if (totEl) totEl.textContent = String(slides.length).padStart(2, '0');
 
   // --- fit each slide's content to the viewport -------------------------
   // Scale a slide down until it fits one screen. Below MIN_SCALE the text stops
