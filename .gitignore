@@ -3,3 +3,4 @@
 CLAUDE.md
 .gbrain-source
 node_modules/
+.gstack/

@@ -162,6 +162,29 @@ tbody tr:hover td{background:rgba(255,255,255,.022)}
 .layer.hot{border-color:rgba(124,156,255,.4);background:linear-gradient(90deg,rgba(124,156,255,.09),var(--panel))}
 .ln{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.06em}
 .layer.hot .ln{color:var(--accent)}
+.layer.cv{border-color:rgba(82,217,138,.35);background:linear-gradient(90deg,rgba(82,217,138,.06),var(--panel))}
+.layer.cv:hover{border-color:rgba(82,217,138,.5);background:linear-gradient(90deg,rgba(82,217,138,.09),var(--panel-2))}
+.layer.cv .ln{color:var(--pos)}
+.layer.cu{border-style:dotted;border-color:var(--line-2)}
+.layer.cu .lname,.layer.cu .ldesc{color:var(--ink-3)}
+.layer.cm{border-color:rgba(124,156,255,.35);background:linear-gradient(90deg,rgba(124,156,255,.06),var(--panel))}
+.layer.cm:hover{border-color:rgba(124,156,255,.5)}
+.layer.cm .ln{color:var(--accent)}
+
+/* ---------- architecture diagrams ---------- */
+.arch{margin-bottom:clamp(12px,1.7vh,18px)}
+.arch-disc{font-size:11px;color:var(--ink-3);line-height:1.5;margin-bottom:8px;padding:6px 10px;background:rgba(255,255,255,.02);border-radius:6px;border:1px solid var(--line)}
+.arch-grp{border:1px solid var(--line);border-radius:10px;padding:clamp(7px,.9vw,11px);margin-bottom:4px;background:rgba(255,255,255,.015)}
+.arch-grp-lbl{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-bottom:5px}
+.arch-nodes{display:flex;gap:4px;flex-wrap:wrap}
+.arch-n{flex:1;min-width:clamp(110px,16vw,170px);padding:4px 7px;border-radius:6px;font-size:clamp(10px,.85vw,11.5px);line-height:1.3}
+.arch-n b{font-weight:600;color:var(--ink);display:block;font-size:clamp(10.5px,.9vw,12px)}
+.arch-n.v{border:1px solid rgba(82,217,138,.3);background:rgba(82,217,138,.04);color:var(--ink-2)}
+.arch-n.i{border:1px dashed rgba(245,165,36,.3);background:rgba(245,165,36,.04);color:var(--ink-2)}
+.arch-n.u{border:1px dotted rgba(108,118,132,.4);color:var(--ink-3)}
+.arch-arr{text-align:center;color:var(--ink-3);font-size:13px;line-height:1;padding:1px 0}
+.arch-ext{display:inline-block;padding:3px 8px;border:1px solid rgba(124,156,255,.3);border-radius:6px;font-size:clamp(10px,.85vw,11.5px);color:var(--accent);background:rgba(124,156,255,.04);margin:2px}
+@media(max-width:680px){.arch-n{min-width:100%}}
 .lname{font-size:clamp(13px,1.2vw,15.5px);font-weight:640;letter-spacing:-.01em}
 .lname span{display:block;font-weight:400;font-size:11.5px;color:var(--ink-3);margin-top:2px;letter-spacing:0}
 .ldesc{font-size:clamp(11.5px,1.02vw,13.4px);color:var(--ink-2);line-height:1.5}
@@ -474,7 +497,7 @@ tbody tr:hover td{background:rgba(255,255,255,.022)}
     </div>
   </div>
 
-  <div class="foot"><b>Caveat:</b> Viven has published no engineering blog, whitepaper or patent; the pairwise-context mechanism is described only in a single founder interview. Tavus's latency and benchmark figures are vendor-reported. Delphi's retrieval numbers come from a Pinecone customer case study. Treat L4 for Viven as <b>claimed architecture, not verified architecture.</b></div>
+  <div class="foot"><b>Caveat:</b> Viven has published no engineering blog, whitepaper or patent; the pairwise-context mechanism is described only in a single founder interview. Tavus's latency and benchmark figures are vendor-reported. Delphi's retrieval numbers come from a Pinecone customer case study. Treat L4 for Viven as <b>claimed architecture, not verified architecture.</b> <b style="color:var(--accent)">Update, Sep 2026:</b> two Viven engineering posts (Dec 2025) partially supersede this caveat. L4 retrieval is now verified and the enterprise planner model is named. A second product, AskSila, runs on a disjoint vendor stack. See <b>section 07</b> (press 7).</div>
 </div></div>
 </section>
 
@@ -725,6 +748,272 @@ tbody tr:hover td{background:rgba(255,255,255,.022)}
 </div></div>
 </section>
 
+<!-- ══════════════════════════ SLIDE 7 · ARCHITECTURE VERIFIED ══════════════════════════ -->
+<section class="slide" id="s7">
+<div class="fit"><div class="wrap">
+  <div class="shead">
+    <span class="snum">07</span>
+    <span class="skicker">Architecture verified</span>
+    <span class="spacer"></span>
+    <span class="skicker">Sep 2026</span>
+  </div>
+
+  <h1>Two products. <em>Zero</em> shared vendors.</h1>
+  <p class="sub">In December 2025 Viven published two engineering blog posts, superseding slide 03's caveat that it had released no primary technical source. They verify the retrieval design, name <b>gpt-4.1</b> as the production planner, and describe a cloud-agnostic deployment system. Separately, Viven operates a second product, AskSila, absent from prior slides, running on a completely separate vendor stack. <b>Two independently published subprocessor disclosures share zero vendors.</b></p>
+
+  <h2>The split: Viven Enterprise vs AskSila</h2>
+  <div class="tshell" style="margin:0 0 clamp(12px,1.8vh,18px)">
+  <span class="thint">scroll for all rows</span>
+  <div class="tscroll">
+  <table>
+    <thead><tr><th>Layer</th><th>Viven Enterprise</th><th>AskSila</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Compute and hosting</strong></td><td><span class="ev p1">V</span> AWS and Azure, customer-side deployer</td><td><span class="ev p1">V</span> Vercel</td></tr>
+      <tr><td><strong>Database, auth, storage</strong></td><td><span class="ev p3">U</span> Not publicly disclosed</td><td><span class="ev p1">V</span> Supabase</td></tr>
+      <tr><td><strong>LLM inference</strong></td><td><span class="ev p1">V</span> OpenAI (US and PH)</td><td><span class="ev p1">V</span> Anthropic</td></tr>
+      <tr><td><strong>Embeddings</strong></td><td><span class="ev p3">U</span> Not disclosed</td><td><span class="ev p1">V</span> Voyage AI</td></tr>
+      <tr><td><strong>Payments</strong></td><td><span class="ev p1">V</span> None, enterprise contracts</td><td><span class="ev p1">V</span> Stripe and Razorpay</td></tr>
+      <tr><td><strong>SMS</strong></td><td>None</td><td><span class="ev p1">V</span> Twilio</td></tr>
+      <tr><td><strong>Transactional email</strong></td><td><span class="ev p3">U</span> Not disclosed</td><td><span class="ev p1">V</span> Resend</td></tr>
+      <tr><td><strong>Error monitoring</strong></td><td><span class="ev p3">U</span> Not disclosed</td><td><span class="ev p1">V</span> Sentry</td></tr>
+      <tr><td><strong>Runtime</strong></td><td><span class="ev p1">V</span> ECS, Azure Container Apps, K8s</td><td><span class="ev p1">V</span> Next.js serverless</td></tr>
+      <tr><td><strong>Deployment options</strong></td><td><span class="ev p1">V</span> SaaS, VPC, on-prem</td><td><span class="ev p1">V</span> SaaS only</td></tr>
+    </tbody>
+  </table>
+  </div>
+  </div>
+
+  <h2>Layer stack, re-graded</h2>
+  <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:8px;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)">
+    <span><span style="display:inline-block;width:12px;height:12px;border:2px solid rgba(82,217,138,.5);border-radius:3px;vertical-align:-2px;margin-right:4px;background:rgba(82,217,138,.08)"></span> Verified</span>
+    <span><span style="display:inline-block;width:12px;height:12px;border:2px solid rgba(124,156,255,.5);border-radius:3px;vertical-align:-2px;margin-right:4px;background:rgba(124,156,255,.08)"></span> Mixed</span>
+    <span><span style="display:inline-block;width:12px;height:12px;border:2px dotted rgba(108,118,132,.5);border-radius:3px;vertical-align:-2px;margin-right:4px"></span> Unknown</span>
+  </div>
+  <div class="stack" style="margin:0 0 clamp(12px,1.7vh,18px)">
+    <div class="layer cv">
+      <span class="ln">L7</span>
+      <div class="lname">Governance<span>verified from three primary sources</span></div>
+      <div class="ldesc"><span class="ev p1">V</span> RBAC, per-twin query audit visible to the twin owner, admin and individual privacy controls. SaaS, VPC, on-prem. TLS 1.2+ and AES-256.</div>
+    </div>
+    <div class="layer cv">
+      <span class="ln">L6</span>
+      <div class="lname">Embodiment<span>verified for absence of output embodiment</span></div>
+      <div class="ldesc"><span class="ev p1">V</span> Enterprise: text only. AskSila adds voice note <b>input</b>, a mobile app, and an embeddable web widget. No voice or video output on either product.</div>
+    </div>
+    <div class="layer cm">
+      <span class="ln">L5</span>
+      <div class="lname">Generation<span>planner verified, synthesis unknown</span></div>
+      <div class="ldesc"><span class="ev p1">V</span> Planner: <code>gpt-4.1</code>. <span class="ev p1">V</span> Offline optimization: <code>gpt-5</code> medium reasoning. <span class="ev p1">V</span> AskSila inference: Anthropic. <span class="ev p3">U</span> Enterprise synthesis model not named in any source.</div>
+    </div>
+    <div class="layer cm">
+      <span class="ln">L4</span>
+      <div class="lname">Retrieval + authorization<span>now split: retrieval verified, auth not</span></div>
+      <div class="ldesc"><span class="ev p1">V</span> <b>Retrieval verified.</b> Planner emits a 1 to 4 step plan using <code>search_documents</code> and <code>web_search</code> with structured filters: author, participant, time_window, entity/topic, recency_boost. Planner forbidden from synthesis steps. <span class="ev p3">U</span> <b>Authorization unverified</b>, sourced only to founder interviews and the launch release.</div>
+    </div>
+    <div class="layer cu">
+      <span class="ln">L3</span>
+      <div class="lname">Person model<span>enterprise: no primary source</span></div>
+      <div class="ldesc"><span class="ev p3">U</span> No primary source describes a temporal knowledge graph on the enterprise side. One AskSila marketing excerpt references "your knowledge graph," but it appeared only in a cached search result and was absent from the direct page fetch. Treat as unconfirmed.</div>
+    </div>
+    <div class="layer cv">
+      <span class="ln">L2</span>
+      <div class="lname">Ingest and normalize<span>stronger than slide 03 assumes</span></div>
+      <div class="ldesc"><span class="ev p1">V</span> Raw source content converted into derived metadata (summaries or embeddings) <b>within 24 to 72 hours</b>, after which raw is not retained. Derived metadata persists for the subscription lifetime. Full deletion within 30 days. The single most architecturally distinctive verified fact about the company.</div>
+    </div>
+    <div class="layer cv">
+      <span class="ln">L1</span>
+      <div class="lname">Sources<span>20 named enterprise connectors</span></div>
+      <div class="ldesc"><span class="ev p1">V</span> Enterprise: Gmail, Drive, Calendar, Outlook, Teams, SharePoint, OneDrive, Slack, Jira, Confluence, GitHub, Salesforce, Box, Clari, Zoom, Webex. AskSila: file upload, voice notes, text, LinkedIn Portability API (1-year retention cap), website/FAQ crawl for the Website Twin.</div>
+    </div>
+  </div>
+
+  <h2>Viven Enterprise, reconstructed</h2>
+  <div class="arch-disc">Public-source reconstruction. Inferred and assumed components are not confirmed. As of Sep 2026.</div>
+  <div class="arch">
+    <div class="arch-grp">
+      <div class="arch-grp-lbl">Source Systems · 20 named connectors</div>
+      <div class="arch-nodes">
+        <div class="arch-n v"><b>Google Workspace</b>Gmail body+meta, Drive content, Calendar events</div>
+        <div class="arch-n v"><b>Microsoft 365</b>Outlook, Teams, SharePoint, OneDrive</div>
+        <div class="arch-n v"><b>SaaS Integrations</b>Slack, Jira, Confluence, GitHub, Salesforce, Box, Clari, Zoom, Webex</div>
+      </div>
+    </div>
+    <div class="arch-arr">&#8595;</div>
+    <div class="arch-grp">
+      <div class="arch-grp-lbl">Ingestion · raw data is transient</div>
+      <div class="arch-nodes">
+        <div class="arch-n i"><b>Connector Fetch</b>Periodic sync inferred from 24-72h window</div>
+        <div class="arch-n v"><b>Raw Staging</b>TTL 24-72 hours</div>
+        <div class="arch-n v"><b>Summarize + Embed</b>Converted to derived metadata</div>
+        <div class="arch-n u"><b>Embedding Model</b>Not named in any source</div>
+      </div>
+    </div>
+    <div class="arch-arr">&#8595;</div>
+    <div class="arch-grp">
+      <div class="arch-grp-lbl">Knowledge Layer</div>
+      <div class="arch-nodes">
+        <div class="arch-n v"><b>Derived Metadata Store</b>Per-customer account, subscription lifetime</div>
+        <div class="arch-n i"><b>Per-User Partitioning</b>Required by pairwise privacy; shared index ruled out</div>
+        <div class="arch-n u"><b>Vector Index</b>Technology not disclosed</div>
+      </div>
+    </div>
+    <div class="arch-arr">&#8595;</div>
+    <div class="arch-grp">
+      <div class="arch-grp-lbl">Query Path</div>
+      <div class="arch-nodes">
+        <div class="arch-n v"><b>Web App</b>digitaltwin.viven.ai</div>
+        <div class="arch-n v"><b>Pairwise Auth + RBAC</b>Scope = f(asker, twin_owner)</div>
+        <div class="arch-n v"><b>Planner Agent</b>gpt-4.1, emits 1-4 step plans</div>
+        <div class="arch-n v"><b>Retrieval Executor</b>Runs plan steps, no synthesis</div>
+        <div class="arch-n u"><b>Response Synthesis</b>Model not named</div>
+        <div class="arch-n v"><b>Query Audit Log</b>Twin owner sees every query + asker</div>
+      </div>
+    </div>
+    <div class="arch-arr">&#8595;</div>
+    <div class="arch-grp">
+      <div class="arch-grp-lbl">Runtime + Delivery</div>
+      <div class="arch-nodes">
+        <div class="arch-n v"><b>CI/CD</b>Single cloud-agnostic build artifact</div>
+        <div class="arch-n v"><b>Deployment Descriptor</b>JSON: version, namespace, env, git_revision</div>
+        <div class="arch-n v"><b>Per-Env Deployer</b>Polls, claims, deploys, reports</div>
+        <div class="arch-n v"><b>ECS / Azure / K8s</b>SaaS, VPC, on-prem</div>
+        <div class="arch-n v"><b>OIDC Federation</b>Azure MI to OIDC to AWS STS, 1h creds</div>
+      </div>
+    </div>
+    <div style="margin-top:5px"><span class="arch-ext">OpenAI API · US + PH <span class="ev p1" style="margin-left:4px">V</span></span></div>
+  </div>
+
+  <h2>AskSila, reconstructed</h2>
+  <div class="arch">
+    <div class="arch-grp">
+      <div class="arch-grp-lbl">Clients</div>
+      <div class="arch-nodes">
+        <div class="arch-n v"><b>Next.js Web App</b>meta-next-size-adjust</div>
+        <div class="arch-n v"><b>Mobile App</b>Native mobile app</div>
+        <div class="arch-n v"><b>Embed Widget</b>widget.js, data-slug + data-position</div>
+        <div class="arch-n v"><b>Share Links</b>asksila.com/s/ID</div>
+      </div>
+    </div>
+    <div class="arch-arr">&#8595;</div>
+    <div class="arch-grp">
+      <div class="arch-grp-lbl">Hosting</div>
+      <div class="arch-nodes">
+        <div class="arch-n v" style="min-width:100%"><b>Vercel</b>sentry-environment=vercel-production</div>
+      </div>
+    </div>
+    <div class="arch-arr">&#8595;</div>
+    <div class="arch-grp">
+      <div class="arch-grp-lbl">Supabase · api.asksila.com</div>
+      <div class="arch-nodes">
+        <div class="arch-n v"><b>Auth</b>Google OAuth, email, phone OTP</div>
+        <div class="arch-n v"><b>Database</b>Profiles, conversations, moderation, bookings</div>
+        <div class="arch-n v"><b>File Storage</b>/storage/v1/object/public/avatars/</div>
+        <div class="arch-n u"><b>Vector Index</b>Host not stated</div>
+      </div>
+    </div>
+    <div class="arch-arr">&#8595;</div>
+    <div class="arch-grp">
+      <div class="arch-grp-lbl">Twin Training Ingest</div>
+      <div class="arch-nodes">
+        <div class="arch-n v"><b>Uploads</b>Files, voice notes, text, imports</div>
+        <div class="arch-n v"><b>LinkedIn API</b>Page Portability, 1yr retention cap</div>
+        <div class="arch-n v"><b>Website Crawl</b>Pages, FAQs, docs, policies</div>
+        <div class="arch-n u"><b>Speech-to-Text</b>Provider not named</div>
+        <div class="arch-n v"><b>Voyage AI</b>Embeddings + retrieval</div>
+      </div>
+    </div>
+    <div class="arch-arr">&#8595;</div>
+    <div class="arch-grp">
+      <div class="arch-grp-lbl">Conversation Runtime</div>
+      <div class="arch-nodes">
+        <div class="arch-n i"><b>Retrieval</b>Per-twin scoping inferred from corpus model</div>
+        <div class="arch-n v"><b>Anthropic</b>Twin response inference</div>
+        <div class="arch-n v"><b>Safety + Moderation</b>Classifiers, crisis redirect, conversation locking</div>
+        <div class="arch-n v"><b>Human Escalation</b>Expert joins thread with full context</div>
+      </div>
+    </div>
+    <div class="arch-arr">&#8595;</div>
+    <div class="arch-grp">
+      <div class="arch-grp-lbl">External Services</div>
+      <div class="arch-nodes">
+        <div class="arch-n v"><b>Stripe</b>Checkout, Connect payouts</div>
+        <div class="arch-n v"><b>Razorpay</b>Payments, Route payouts</div>
+        <div class="arch-n v"><b>Twilio</b>SMS OTP, WhatsApp</div>
+        <div class="arch-n v"><b>Resend</b>Transactional email</div>
+        <div class="arch-n v"><b>Sentry</b>Error monitoring</div>
+        <div class="arch-n v"><b>GTM</b>Analytics</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-bottom:clamp(12px,1.7vh,18px)">
+    <div class="card" style="border-color:rgba(82,217,138,.25)">
+      <h3 style="font-size:clamp(13px,1.15vw,15px)">Enterprise query sequence</h3>
+      <p class="lbl" style="margin-bottom:8px">All participants verified. Ordering is the finding.</p>
+      <div style="display:flex;flex-direction:column;gap:2px;font-size:clamp(11px,.92vw,12.5px)">
+        <div style="padding:4px 8px;color:var(--ink-2)"><span class="num" style="color:var(--ink-3);margin-right:6px;font-size:10px">1</span> Asker sends query directed at Twin(B)</div>
+        <div style="padding:4px 8px;background:rgba(82,217,138,.08);border:1px solid rgba(82,217,138,.18);border-radius:5px;color:var(--ink)"><span class="num" style="color:var(--pos);margin-right:6px;font-size:10px">2</span> <b>Scope resolved</b> before plan generation</div>
+        <div style="padding:4px 8px;background:rgba(82,217,138,.08);border:1px solid rgba(82,217,138,.18);border-radius:5px;color:var(--ink)"><span class="num" style="color:var(--pos);margin-right:6px;font-size:10px">3</span> <b>Audit log written</b> before plan generation</div>
+        <div style="padding:4px 8px;color:var(--ink-2)"><span class="num" style="color:var(--ink-3);margin-right:6px;font-size:10px">4</span> Planner (gpt-4.1) emits 1-4 step plan</div>
+        <div style="padding:4px 8px;color:var(--ink-2)"><span class="num" style="color:var(--ink-3);margin-right:6px;font-size:10px">5</span> Executor retrieves derived chunks within scope</div>
+        <div style="padding:4px 8px;color:var(--ink-2)"><span class="num" style="color:var(--ink-3);margin-right:6px;font-size:10px">6</span> Synthesis returns twin response</div>
+        <div style="padding:4px 8px;color:var(--ink-2)"><span class="num" style="color:var(--ink-3);margin-right:6px;font-size:10px">7</span> Twin owner can view full query history</div>
+      </div>
+      <p class="lbl" style="margin-top:8px">Steps 2 and 3 before 4 is the load-bearing constraint. <b style="color:var(--pos)">Scope and audit precede the model.</b></p>
+    </div>
+    <div class="card" style="border-color:rgba(124,156,255,.25)">
+      <h3 style="font-size:clamp(13px,1.15vw,15px)">Data lifecycle <span class="ev p1" style="vertical-align:2px">V</span></h3>
+      <p class="lbl" style="margin-bottom:8px">Every transition from Viven Privacy Policy, 1 Apr 2025.</p>
+      <div style="display:flex;flex-direction:column;gap:3px;font-size:clamp(11px,.92vw,12.5px)">
+        <div style="padding:5px 10px;background:rgba(124,156,255,.08);border:1px solid rgba(124,156,255,.15);border-radius:6px"><b>OAuth granted</b> <span style="color:var(--ink-2)">User consents via Google OAuth 2.0</span></div>
+        <div style="text-align:center;color:var(--ink-3);font-size:11px;line-height:1">&#8595;</div>
+        <div style="padding:5px 10px;background:rgba(245,165,36,.07);border:1px solid rgba(245,165,36,.15);border-radius:6px"><b>Raw staged</b> <span style="color:var(--ink-2)">TTL 24 to 72 hours, then evicted</span></div>
+        <div style="text-align:center;color:var(--ink-3);font-size:11px;line-height:1">&#8595;</div>
+        <div style="padding:5px 10px;background:rgba(82,217,138,.07);border:1px solid rgba(82,217,138,.15);border-radius:6px"><b>Derived metadata</b> <span style="color:var(--ink-2)">Summaries + embeddings, persists while active</span></div>
+        <div style="text-align:center;color:var(--ink-3);font-size:11px;line-height:1">&#8595;</div>
+        <div style="padding:5px 10px;background:var(--panel);border:1px solid var(--line);border-radius:6px"><b>Deleted</b> <span style="color:var(--ink-2)">Within 30 days of termination or request</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h2>What would promote each unknown to verified</h2>
+  <div class="tshell" style="margin:0 0 clamp(12px,1.7vh,18px)">
+  <span class="thint">scroll for all rows</span>
+  <div class="tscroll">
+  <table>
+    <thead><tr><th>Unknown</th><th>Single source that would promote it</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Enterprise vector store</strong></td><td>An engineering blog or job posting naming the index technology</td></tr>
+      <tr><td><strong>Enterprise embedding model</strong></td><td>Updated Viven subprocessor notice, or an ingestion-pipeline blog post</td></tr>
+      <tr><td><strong>Enterprise synthesis model</strong></td><td>An engineering post covering the generation stage</td></tr>
+      <tr><td><strong>AskSila vector index location</strong></td><td>An AskSila engineering post naming pgvector, or a new vendor in the subprocessor list</td></tr>
+      <tr><td><strong>AskSila speech-to-text</strong></td><td>Addition of the transcription vendor to the AskSila subprocessor list</td></tr>
+      <tr><td><strong>Orchestration framework</strong></td><td>Any engineering post or job posting naming it</td></tr>
+      <tr><td><strong>Pairwise auth mechanism</strong></td><td>A security whitepaper or engineering post describing enforcement at retrieval time</td></tr>
+      <tr><td><strong>Per-user data isolation</strong></td><td>A security whitepaper on physical or logical partitioning per twin</td></tr>
+      <tr><td><strong>SOC 2 / ISO 27001</strong></td><td>A trust center or a published attestation</td></tr>
+      <tr><td><strong>Rate limits, SLOs, pricing</strong></td><td>Public API docs or a published pricing page</td></tr>
+      <tr><td><strong>Shared code between products</strong></td><td>Either subprocessor list converging on the other's vendors</td></tr>
+    </tbody>
+  </table>
+  </div>
+  </div>
+
+  <div class="grid g2">
+    <div class="finding">
+      <div class="fh">The finding</div>
+      <p>Two independently published subprocessor disclosures, one dated June 2025 and the other August 2026, <strong>share zero vendors</strong>. The enterprise system runs on AWS, Azure, and OpenAI. AskSila runs on Vercel, Supabase, Anthropic, and Voyage AI. On the current evidence these are genuinely separate systems, not one backend with different packaging.</p>
+    </div>
+    <div class="finding">
+      <div class="fh">The consequence</div>
+      <p>The two-stack finding rests on a <strong>14-month gap</strong> between the two documents. If the enterprise subprocessor notice were refreshed and named Anthropic, Voyage, or Vercel, the determination could move back toward a shared backend. <strong>The finding is falsifiable, and this section states how.</strong></p>
+    </div>
+  </div>
+
+  <div class="foot"><b>Caveat:</b> this reconstruction uses public sources only, weighted toward legal disclosures, engineering posts and live DOM artefacts over marketing copy. The pairwise authorization mechanism remains described only in founder interviews and the launch release, so L4 authorization stays unverified even though L4 retrieval no longer is. No SOC 2 attestation, status page, public repository or patent was found. Nothing here is sourced to a private conversation, a customer, or a non-public document. <b>Searched and not found:</b> public GitHub org, developer or API docs, status page, incident history, SOC 2 / trust center, patents, changelog, integration marketplace listings, conference talks.</div>
+</div></div>
+</section>
+
 </div><!-- /deck -->
 
 <div class="hint" id="hint">← → to navigate · S for sources</div>
@@ -817,7 +1106,22 @@ tbody tr:hover td{background:rgba(255,255,255,.022)}
     <li><a href="https://www.gartner.com/en/newsroom/press-releases/2025-08-11-gartner-says-30-percent-of-organizations-will-have-blended-hr-and-it-teams-by-2029" target="_blank" rel="noopener">Gartner</a> · 30% of organisations to form blended HR-IT teams by 2029</li>
   </ol>
 
-  <p class="dsub" style="margin-top:24px;padding-top:16px;border-top:1px solid var(--line)">Prepared 5 August 2026. Two prior research memos in this folder supplied the competitive and architectural baselines; funding, ARR, market and regulatory figures were re-verified against live sources for this deck.</p>
+  <h4>Architecture verified (Sep 2026)</h4>
+  <ol start="44">
+    <li>AskSila privacy policy · legal, full subprocessor list, 28 Aug 2026. Source for the entire AskSila vendor stack</li>
+    <li>AskSila terms of service · legal, moderation, escalation, discovery, payments, 28 Aug 2026</li>
+    <li>Viven engineering blog · <em>Supervised Prompt Optimization</em>, 10 Dec 2025. Planner/executor split, tool schema, filters, gpt-4.1, gpt-5, GEPA method</li>
+    <li>Viven engineering blog · <em>Single Artifact, Multi-Cloud Deployments</em>, 22 Dec 2025. CI/CD, deployment descriptor, deployer, cloud adapters, OIDC federation</li>
+    <li>Viven privacy policy · legal, 1 Apr 2025. 24-72h conversion window, 30-day deletion, OAuth scopes, TLS/AES</li>
+    <li>Viven subprocessor notice · legal, 9 Jun 2025. AWS, Azure, OpenAI and their processing regions</li>
+    <li>Viven terms of service · legal, Jun 2025. Entity, deployment options, API access reference</li>
+    <li>AskSila widget page · product page and live asset URLs, Sep 2026. Widget snippet, Supabase storage URL, escalation UX</li>
+    <li>AskSila page <code>&lt;head&gt;</code> meta · DOM artefact, Sep 2026. Sentry org, Vercel production environment, Next.js</li>
+    <li><a href="https://careers.viven.ai" target="_blank" rel="noopener">careers.viven.ai</a> and wisdomlabs.eightfold.ai · job postings, Sep 2026. AI/ML role scope: fine tuning, agents, eval pipelines, retrieval/ranking</li>
+    <li><a href="https://viven.ai" target="_blank" rel="noopener">viven.ai</a> homepage · product page, Sep 2026. 20 connectors, deployment options, AskSila relationship</li>
+  </ol>
+
+  <p class="dsub" style="margin-top:24px;padding-top:16px;border-top:1px solid var(--line)">Prepared 5 August 2026, extended September 2026. Source memos in the research folder supplied the competitive and architectural baselines; funding, ARR, market and regulatory figures were re-verified against live sources. Sources 44-54 were retrieved 11 September 2026.</p>
 </aside>
 
 <script>

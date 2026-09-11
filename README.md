@@ -16,10 +16,11 @@ sold to do, who signs the cheque, and how the whole thing relates to a company b
 | **04 · Employee use cases** | Viven sells six use cases. Two have a reference deployment, one has a first-party claim, three have neither. Every vendor here converges on the same primitive. |
 | **05 · The buyer** | Everyone files this under HR. Nobody sells it there. The buying centre is the CEO's office with IT as approver, and legal as the blocker. |
 | **06 · Twins vs company brain** | Same machine, different unit of indexing. Around 80% of the build is identical, and the 20% that differs is consent. |
+| **07 · Architecture verified** | Two products. Zero shared vendors. The Dec 2025 engineering blog posts verify the retrieval design and name the planner model. AskSila runs on a completely disjoint stack. |
 
 ## Reading it
 
-Arrow keys, space, or `Home` / `End` to move. Number keys `1`–`6` jump to a slide.
+Arrow keys, space, or `Home` / `End` to move. Number keys `1`–`7` jump to a slide.
 `S` opens the sources panel, `Esc` closes it. Swipe on touch.
 
 Each slide scales itself to fit one screen, down to a readability floor, below which
@@ -30,7 +31,7 @@ step. Printing gives one page per slide.
 
 ```
 index.html    the deck, self-contained: no framework, no build, no network calls
-research/     the four source memos the deck was built from
+research/     the five source memos the deck was built from
 ```
 
 The deck goes beyond the memos in `research/`. Funding, ARR, market sizing and the
@@ -43,8 +44,9 @@ board. Sources are listed in the deck itself.
 
 Funding and ARR figures come from primary announcements and are cited. Market-size and
 CAGR figures are vendor-commissioned research that disagrees with itself by up to 3×,
-and the deck says so on the slide rather than in a footnote. Viven's architecture is
-described from a single founder interview and is labelled claimed, not verified.
+and the deck says so on the slide rather than in a footnote. Viven's architecture was
+described from a single founder interview on slides 01-06; slide 07 re-grades the
+layer stack against two Dec 2025 engineering blog posts and public legal disclosures.
 
 Slides 04 and 05 rest almost entirely on first-party evidence, which shows marketed
 positioning rather than proven behaviour, and both say so on the slide. Two known
