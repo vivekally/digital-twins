@@ -1,0 +1,1022 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Employee Digital Twin Benchmark · Scorecard</title>
+<style>
+:root{
+  --bg:#0A0B0E;
+  --bg-2:#0E1116;
+  --panel:#13171E;
+  --panel-2:#171C25;
+  --line:rgba(255,255,255,.09);
+  --line-2:rgba(255,255,255,.15);
+  --ink:#EDEFF3;
+  --ink-2:#A6AEBB;
+  --ink-3:#6C7684;
+  --accent:#7C9CFF;
+  --twin:#F5A524;
+  --brain:#4CC9F0;
+  --pos:#52D98A;
+  --neg:#FF6B6B;
+  --warn:#D97706;
+  --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, "JetBrains Mono", Menlo, Consolas, monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{height:100%}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  background:
+    radial-gradient(900px 500px at 12% -10%, rgba(124,156,255,.10), transparent 60%),
+    radial-gradient(800px 500px at 95% 108%, rgba(76,201,240,.07), transparent 60%);
+  pointer-events:none;z-index:0;
+}
+
+.wrap{max-width:1440px;margin:0 auto;padding:0 clamp(20px,4vw,56px);position:relative;z-index:1}
+
+/* ---------- top nav ---------- */
+.topnav{
+  position:sticky;top:0;z-index:30;
+  background:rgba(10,11,14,.88);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  padding:0 clamp(20px,4vw,56px);
+}
+.topnav-inner{
+  max-width:1440px;margin:0 auto;
+  display:flex;align-items:center;gap:24px;
+  height:52px;
+}
+.topnav .logo{
+  font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-2);white-space:nowrap;font-weight:600;
+}
+.topnav .logo b{color:var(--accent)}
+.topnav-links{display:flex;gap:4px;margin-left:auto}
+.topnav-links a{
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-3);text-decoration:none;padding:6px 12px;border-radius:6px;
+  transition:all .18s;white-space:nowrap;
+}
+.topnav-links a:hover{color:var(--ink-2);background:rgba(255,255,255,.05)}
+.topnav-links a.active{color:var(--accent);background:rgba(124,156,255,.1)}
+
+/* ---------- header ---------- */
+.hero{padding:clamp(28px,4vh,48px) 0 clamp(20px,3vh,32px)}
+h1{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(26px,3.2vw,42px);
+  line-height:1.1;
+  letter-spacing:-.02em;
+  margin-bottom:8px;
+}
+h1 em{font-style:italic;color:var(--accent)}
+.sub{font-size:clamp(13px,1.15vw,15px);color:var(--ink-2);max-width:96ch;line-height:1.55}
+.sub b{color:var(--ink);font-weight:600}
+
+.meta-row{
+  display:flex;gap:clamp(16px,2.5vw,32px);flex-wrap:wrap;align-items:center;
+  margin-top:clamp(14px,2vh,22px);padding-top:clamp(10px,1.4vh,16px);
+  border-top:1px solid var(--line);
+}
+.meta{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.08em}
+.meta b{color:var(--ink-2);font-weight:600}
+
+/* ---------- category pills ---------- */
+.pills{
+  display:flex;gap:6px;flex-wrap:wrap;
+  margin:clamp(16px,2.4vh,24px) 0 clamp(12px,1.8vh,18px);
+}
+.pill{
+  appearance:none;border:1px solid var(--line-2);background:transparent;
+  color:var(--ink-3);font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;padding:5px 12px;border-radius:6px;cursor:pointer;
+  transition:all .18s;white-space:nowrap;
+}
+.pill:hover{color:var(--ink-2);background:rgba(255,255,255,.04)}
+.pill.on{color:var(--accent);border-color:rgba(124,156,255,.4);background:rgba(124,156,255,.1)}
+.pill .cnt{font-weight:600;margin-left:4px}
+
+/* ---------- tabs ---------- */
+.view-tabs{
+  display:flex;gap:4px;margin-bottom:clamp(12px,1.8vh,18px);
+}
+.vtab{
+  appearance:none;border:1px solid var(--line);background:transparent;
+  color:var(--ink-3);font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;padding:6px 14px;border-radius:6px;cursor:pointer;
+  transition:all .18s;
+}
+.vtab:hover{color:var(--ink-2);background:rgba(255,255,255,.04)}
+.vtab.on{color:var(--ink);border-color:var(--line-2);background:rgba(255,255,255,.06)}
+
+/* ---------- scorecard table ---------- */
+.sc-shell{
+  border:1px solid var(--line);border-radius:14px;
+  background:var(--bg-2);overflow:hidden;
+  margin-bottom:clamp(20px,3vh,32px);
+}
+.sc-scroll{overflow-x:auto;scrollbar-width:thin}
+.sc-scroll::-webkit-scrollbar{height:8px}
+.sc-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:4px}
+
+table.sc{width:100%;border-collapse:collapse;font-size:13px;min-width:1200px}
+table.sc th{
+  text-align:center;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:600;padding:12px 8px;border-bottom:1px solid var(--line);
+  background:rgba(255,255,255,.02);white-space:nowrap;position:sticky;top:0;z-index:2;
+}
+table.sc th:first-child{text-align:left;padding-left:16px;min-width:180px}
+table.sc th.sort{cursor:pointer;user-select:none}
+table.sc th.sort:hover{color:var(--ink-2)}
+table.sc th.sort.asc::after,table.sc th.sort.desc::after{margin-left:3px;font-size:8px}
+table.sc th.sort.asc::after{content:"▲"}
+table.sc th.sort.desc::after{content:"▼"}
+
+table.sc td{
+  padding:10px 8px;border-bottom:1px solid rgba(255,255,255,.04);
+  text-align:center;vertical-align:middle;color:var(--ink-2);
+}
+table.sc td:first-child{text-align:left;padding-left:16px}
+table.sc tbody tr:hover td{background:rgba(255,255,255,.02)}
+table.sc tbody tr.hidden{display:none}
+
+.co-name{font-weight:640;color:var(--ink);font-size:14px;display:block;letter-spacing:-.01em}
+.co-hq{font-size:11px;color:var(--ink-3);margin-top:1px}
+
+/* score cells */
+.score{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:34px;height:28px;border-radius:6px;
+  font-family:var(--mono);font-size:13px;font-weight:600;
+  font-variant-numeric:tabular-nums;
+}
+.score.s10,.score.s9{background:rgba(124,156,255,.22);color:#a0bbff}
+.score.s8{background:rgba(124,156,255,.16);color:#8da8f0}
+.score.s7{background:rgba(124,156,255,.11);color:#8299d8}
+.score.s6{background:rgba(255,255,255,.07);color:var(--ink-2)}
+.score.s5{background:rgba(255,255,255,.05);color:var(--ink-3)}
+.score.s4,.score.s3{background:rgba(255,107,107,.1);color:#e88}
+.score.s2,.score.s1{background:rgba(255,107,107,.15);color:#f77}
+.score.na{background:transparent;color:var(--ink-3);font-size:11px;font-weight:400;letter-spacing:.05em}
+
+.overall{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:38px;height:28px;border-radius:6px;padding:0 6px;
+  font-family:var(--mono);font-size:14px;font-weight:700;
+  font-variant-numeric:tabular-nums;
+}
+.overall.hi{background:rgba(124,156,255,.25);color:#a8c0ff}
+.overall.mid{background:rgba(124,156,255,.14);color:#8da8e8}
+.overall.lo{background:rgba(255,255,255,.06);color:var(--ink-2)}
+
+.tested{
+  font-family:var(--mono);font-size:11px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+
+.funding{
+  font-family:var(--mono);font-size:11px;color:var(--twin);
+  font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+
+/* group header rows */
+tr.group td{
+  background:rgba(124,156,255,.06);color:var(--accent);
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
+  padding:8px 16px;
+}
+
+/* ---------- status bar ---------- */
+.status-bar{
+  display:flex;gap:clamp(20px,3vw,40px);align-items:center;flex-wrap:wrap;
+  margin-bottom:clamp(12px,1.8vh,18px);
+}
+.status-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-2)}
+.status-dot{width:8px;height:8px;border-radius:50%}
+.status-dot.green{background:var(--pos)}
+.status-dot.blue{background:var(--accent)}
+.status-dot.gray{background:var(--ink-3)}
+
+/* ---------- dimensions panel ---------- */
+.dims-panel{
+  display:none;
+  padding-bottom:clamp(40px,6vh,60px);
+}
+.dims-panel.visible{display:block}
+.dims-grid{
+  display:grid;grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));
+  gap:clamp(10px,1.2vw,16px);
+  margin-top:clamp(16px,2.4vh,24px);
+}
+.dim-card{
+  background:linear-gradient(180deg,var(--panel),var(--bg-2));
+  border:1px solid var(--line);border-radius:12px;
+  padding:clamp(14px,1.4vw,18px);
+  transition:border-color .2s;
+}
+.dim-card:hover{border-color:var(--line-2)}
+.dim-num{
+  font-family:var(--mono);font-size:11px;color:var(--accent);
+  letter-spacing:.1em;font-weight:600;margin-bottom:6px;
+}
+.dim-name{font-size:15px;font-weight:640;margin-bottom:6px;letter-spacing:-.01em}
+.dim-test{font-size:12px;color:var(--ink-3);line-height:1.45;margin-bottom:8px}
+.dim-test b{color:var(--ink-2);font-weight:600}
+.dim-desc{font-size:12.5px;color:var(--ink-2);line-height:1.5}
+
+/* ---------- methodology ---------- */
+.method{
+  background:linear-gradient(180deg,var(--panel),var(--bg-2));
+  border:1px solid var(--line);border-radius:14px;
+  padding:clamp(18px,2vw,28px);
+  margin-bottom:clamp(20px,3vh,32px);
+}
+.method h2{
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:12px;
+}
+.method p{font-size:13px;color:var(--ink-2);line-height:1.6;margin-bottom:10px}
+.method p:last-child{margin-bottom:0}
+.method b{color:var(--ink);font-weight:600}
+
+.scale-row{
+  display:flex;gap:4px;margin:14px 0;flex-wrap:wrap;
+}
+.scale-item{
+  display:flex;align-items:center;gap:5px;
+  font-family:var(--mono);font-size:11px;color:var(--ink-3);
+}
+
+/* ---------- footer ---------- */
+.foot{
+  padding:clamp(20px,3vh,32px) 0;
+  border-top:1px solid rgba(255,255,255,.05);
+  font-size:11.5px;color:var(--ink-3);line-height:1.5;
+}
+.foot b{color:var(--ink-2);font-weight:600}
+.foot a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(124,156,255,.3)}
+.foot a:hover{border-bottom-color:var(--accent)}
+
+/* ---------- responsive ---------- */
+@media(max-width:768px){
+  .topnav-links a{font-size:10px;padding:5px 8px}
+  .dims-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <span class="logo"><b>Digital Twins</b> · Benchmark</span>
+    <div class="topnav-links">
+      <a href="index.html">Research Deck</a>
+      <a href="benchmark.html" class="active">Benchmark</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<div class="hero">
+  <h1>Employee Digital Twin <em>Benchmark</em></h1>
+  <p class="sub">16 products, 15 dimensions, one scale. Every product that replicates a named person's knowledge for enterprise or professional use, scored on what they actually ship. <b>No product has earned a perfect score. Most have not been independently verified.</b></p>
+  <div class="meta-row">
+    <span class="meta"><b>Benchmark v0.1</b></span>
+    <span class="meta"><b>16</b> products</span>
+    <span class="meta"><b>15</b> dimensions</span>
+    <span class="meta">last updated <b>Sep 15, 2026</b></span>
+    <span class="meta">by <b>Vivek Ally</b> · <a href="https://vivekally.github.io/digital-twins/" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(124,156,255,.3)">vivekally.github.io/digital-twins</a></span>
+  </div>
+</div>
+
+<!-- category pills -->
+<div class="pills" id="pills">
+  <button class="pill on" data-cat="all">All<span class="cnt">16</span></button>
+  <button class="pill" data-cat="enterprise">Enterprise<span class="cnt">7</span></button>
+  <button class="pill" data-cat="creator">Creator / Expert<span class="cnt">4</span></button>
+  <button class="pill" data-cat="adjacent">Adjacent<span class="cnt">3</span></button>
+  <button class="pill" data-cat="incumbent">Incumbent<span class="cnt">2</span></button>
+</div>
+
+<!-- view tabs -->
+<div class="view-tabs" id="viewTabs">
+  <button class="vtab on" data-view="scorecard">Scorecard</button>
+  <button class="vtab" data-view="dimensions">Dimensions</button>
+  <button class="vtab" data-view="methodology">How scoring works</button>
+</div>
+
+<!-- ══════════════ SCORECARD VIEW ══════════════ -->
+<div id="scorecardView">
+
+<div class="status-bar">
+  <div class="status-item"><span class="status-dot blue"></span> 16 products scored</div>
+  <div class="status-item"><span class="status-dot gray"></span> Vendor-reported data; independent verification pending</div>
+</div>
+
+<div class="sc-shell">
+<div class="sc-scroll">
+<table class="sc" id="scoreTable">
+  <thead>
+    <tr>
+      <th class="sort desc" data-col="name">Product</th>
+      <th>Funding</th>
+      <th class="sort" data-col="overall">Overall</th>
+      <th class="sort" data-col="tested">Tested</th>
+      <th class="sort" data-col="0">Knowledge Capture</th>
+      <th class="sort" data-col="1">Response Fidelity</th>
+      <th class="sort" data-col="2">Source Integrations</th>
+      <th class="sort" data-col="3">Privacy &amp; Governance</th>
+      <th class="sort" data-col="4">Deploy Options</th>
+      <th class="sort" data-col="5">Voice &amp; Avatar</th>
+      <th class="sort" data-col="6">Grounding &amp; Citations</th>
+      <th class="sort" data-col="7">Setup Speed</th>
+      <th class="sort" data-col="8">Query Latency</th>
+      <th class="sort" data-col="9">Team &amp; Org</th>
+      <th class="sort" data-col="10">API &amp; Extensibility</th>
+      <th class="sort" data-col="11">Knowledge Freshness</th>
+      <th class="sort" data-col="12">Access Control</th>
+      <th class="sort" data-col="13">Multi-language</th>
+      <th class="sort" data-col="14">Pricing Access</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="group"><td colspan="19">Person replicas · Enterprise / Employee twins</td></tr>
+
+    <tr data-cat="enterprise" data-scores="9,8,8,9,9,2,8,7,0,9,0,8,9,0,0" data-overall="7.6" data-tested="10/15" data-name="Viven">
+      <td><span class="co-name">Viven</span><span class="co-hq">Santa Clara, CA · 2025</span></td>
+      <td class="funding">~$70M</td>
+      <td><span class="overall hi">7.6</span></td>
+      <td class="tested">10/15</td>
+      <td><span class="score s9">9</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s9">9</span></td>
+      <td><span class="score s9">9</span></td>
+      <td><span class="score s2">2</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score na">—</span></td>
+      <td><span class="score s9">9</span></td>
+      <td><span class="score na">—</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s9">9</span></td>
+      <td><span class="score na">—</span></td>
+      <td><span class="score na">—</span></td>
+    </tr>
+
+    <tr data-cat="enterprise" data-scores="8,8,8,9,8,0,7,7,0,8,7,7,8,0,0" data-overall="7.7" data-tested="11/15" data-name="Twin1 AI">
+      <td><span class="co-name">Twin1 AI</span><span class="co-hq">San Mateo / London · 2025</span></td>
+      <td class="funding">$20M seed</td>
+      <td><span class="overall hi">7.7</span></td>
+      <td class="tested">11/15</td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s9">9</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score na">—</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score na">—</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score na">—</span></td>
+      <td><span class="score na">—</span></td>
+    </tr>
+
+    <tr data-cat="enterprise" data-scores="7,7,9,7,5,3,7,9,7,7,7,8,6,0,10" data-overall="6.9" data-tested="13/15" data-name="Read AI Ada">
+      <td><span class="co-name">Read AI &ldquo;Ada&rdquo;</span><span class="co-hq">Seattle, WA · 2021 · Ada launched Feb 2026</span></td>
+      <td class="funding">$50M+</td>
+      <td><span class="overall mid">6.9</span></td>
+      <td class="tested">13/15</td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s9">9</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s5">5</span></td>
+      <td><span class="score s3">3</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s9">9</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score na">—</span></td>
+      <td><span class="score s10">10</span></td>
+    </tr>
+
+    <tr data-cat="enterprise" data-scores="7,7,7,6,5,3,6,7,0,6,6,7,5,0,7" data-overall="6.1" data-tested="12/15" data-name="Personal AI">
+      <td><span class="co-name">Personal AI</span><span class="co-hq">San Diego / NY · 2020</span></td>
+      <td class="funding">~$27M</td>
+      <td><span class="overall lo">6.1</span></td>
+      <td class="tested">12/15</td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s5">5</span></td>
+      <td><span class="score s3">3</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score na">—</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s5">5</span></td>
+      <td><span class="score na">—</span></td>
+      <td><span class="score s7">7</span></td>
+    </tr>
+
+    <tr data-cat="enterprise" data-scores="7,6,7,8,6,7,7,6,0,6,7,6,7,9,0" data-overall="6.8" data-tested="12/15" data-name="Praxis AI">
+      <td><span class="co-name">Praxis AI</span><span class="co-hq">Pleasanton, CA · 2019</span></td>
+      <td class="funding">~$110K + AWS</td>
+      <td><span class="overall mid">6.8</span></td>
+      <td class="tested">12/15</td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score na">—</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s9">9</span></td>
+      <td><span class="score na">—</span></td>
+    </tr>
+
+    <tr data-cat="enterprise" data-scores="6,6,5,6,5,6,5,7,0,6,8,6,5,9,7" data-overall="6.2" data-tested="13/15" data-name="Sensay">
+      <td><span class="co-name">Sensay</span><span class="co-hq">London · 2023</span></td>
+      <td class="funding">$3.4M token</td>
+      <td><span class="overall lo">6.2</span></td>
+      <td class="tested">13/15</td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s5">5</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s5">5</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s5">5</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score na">—</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s5">5</span></td>
+      <td><span class="score s9">9</span></td>
+      <td><span class="score s7">7</span></td>
+    </tr>
+
+    <tr data-cat="enterprise" data-scores="7,7,7,6,5,9,6,7,0,7,5,7,6,9,6" data-overall="6.7" data-tested="13/15" data-name="IgniteTech MyPersonas">
+      <td><span class="co-name">IgniteTech MyPersonas</span><span class="co-hq">Texas · 2025 (CES)</span></td>
+      <td class="funding">corporate</td>
+      <td><span class="overall mid">6.7</span></td>
+      <td class="tested">13/15</td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s5">5</span></td>
+      <td><span class="score s9">9</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score na">—</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s5">5</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s9">9</span></td>
+      <td><span class="score s6">6</span></td>
+    </tr>
+
+    <tr class="group"><td colspan="19">Person replicas · Creator / Expert twins</td></tr>
+
+    <tr data-cat="creator" data-scores="8,8,6,7,5,8,9,8,8,6,6,7,6,7,8" data-overall="7.1" data-tested="15/15" data-name="Delphi">
+      <td><span class="co-name">Delphi</span><span class="co-hq">Miami, FL · 2022</span></td>
+      <td class="funding">~$19M</td>
+      <td><span class="overall hi">7.1</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s5">5</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s9">9</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s8">8</span></td>
+    </tr>
+
+    <tr data-cat="creator" data-scores="6,7,3,5,4,6,7,6,0,3,5,5,6,0,6" data-overall="5.3" data-tested="12/15" data-name="Uare.ai">
+      <td><span class="co-name">Uare.ai</span><span class="co-hq">Palo Alto, CA · 2024</span></td>
+      <td class="funding">$10.3M seed</td>
+      <td><span class="overall lo">5.3</span></td>
+      <td class="tested">12/15</td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s3">3</span></td>
+      <td><span class="score s5">5</span></td>
+      <td><span class="score s4">4</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score na">—</span></td>
+      <td><span class="score s3">3</span></td>
+      <td><span class="score s5">5</span></td>
+      <td><span class="score s5">5</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score na">—</span></td>
+      <td><span class="score s6">6</span></td>
+    </tr>
+
+    <tr data-cat="creator" data-scores="6,7,4,4,4,2,5,8,0,3,3,5,4,0,9" data-overall="4.9" data-tested="12/15" data-name="Coachvox AI">
+      <td><span class="co-name">Coachvox AI</span><span class="co-hq">London, UK · 2023</span></td>
+      <td class="funding">bootstrapped</td>
+      <td><span class="overall lo">4.9</span></td>
+      <td class="tested">12/15</td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s4">4</span></td>
+      <td><span class="score s4">4</span></td>
+      <td><span class="score s4">4</span></td>
+      <td><span class="score s2">2</span></td>
+      <td><span class="score s5">5</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score na">—</span></td>
+      <td><span class="score s3">3</span></td>
+      <td><span class="score s3">3</span></td>
+      <td><span class="score s5">5</span></td>
+      <td><span class="score s4">4</span></td>
+      <td><span class="score na">—</span></td>
+      <td><span class="score s9">9</span></td>
+    </tr>
+
+    <tr data-cat="creator" data-scores="6,6,4,4,4,6,5,7,0,3,4,5,4,0,7" data-overall="5.0" data-tested="12/15" data-name="Miria">
+      <td><span class="co-name">Miria</span><span class="co-hq">France · 2025</span></td>
+      <td class="funding">&euro;500K pre-seed</td>
+      <td><span class="overall lo">5.0</span></td>
+      <td class="tested">12/15</td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s4">4</span></td>
+      <td><span class="score s4">4</span></td>
+      <td><span class="score s4">4</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s5">5</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score na">—</span></td>
+      <td><span class="score s3">3</span></td>
+      <td><span class="score s4">4</span></td>
+      <td><span class="score s5">5</span></td>
+      <td><span class="score s4">4</span></td>
+      <td><span class="score na">—</span></td>
+      <td><span class="score s7">7</span></td>
+    </tr>
+
+    <tr class="group"><td colspan="19">Adjacent · Embodiment &amp; simulation infrastructure</td></tr>
+
+    <tr data-cat="adjacent" data-scores="3,8,4,8,6,10,4,7,9,4,9,3,6,7,7" data-overall="6.4" data-tested="15/15" data-name="Tavus">
+      <td><span class="co-name">Tavus</span><span class="co-hq">San Francisco · 2020</span></td>
+      <td class="funding">~$64M</td>
+      <td><span class="overall mid">6.4</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s3">3</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s4">4</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s10">10</span></td>
+      <td><span class="score s4">4</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s9">9</span></td>
+      <td><span class="score s4">4</span></td>
+      <td><span class="score s9">9</span></td>
+      <td><span class="score s3">3</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s7">7</span></td>
+    </tr>
+
+    <tr data-cat="adjacent" data-scores="7,7,4,7,5,10,5,6,8,5,8,4,6,9,7" data-overall="6.5" data-tested="15/15" data-name="Synthesia">
+      <td><span class="co-name">Synthesia</span><span class="co-hq">London · 2017</span></td>
+      <td class="funding">$200M · $4B</td>
+      <td><span class="overall mid">6.5</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s4">4</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s5">5</span></td>
+      <td><span class="score s10">10</span></td>
+      <td><span class="score s5">5</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s5">5</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s4">4</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s9">9</span></td>
+      <td><span class="score s7">7</span></td>
+    </tr>
+
+    <tr data-cat="adjacent" data-scores="0,0,0,6,4,0,0,0,0,0,0,0,5,0,0" data-overall="5.0" data-tested="3/15" data-name="Simile">
+      <td><span class="co-name">Simile</span><span class="co-hq">Palo Alto · 2026</span></td>
+      <td class="funding">$300M+ · $2B</td>
+      <td><span class="overall lo">5.0</span></td>
+      <td class="tested">3/15</td>
+      <td><span class="score na">N/A</span></td>
+      <td><span class="score na">N/A</span></td>
+      <td><span class="score na">N/A</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s4">4</span></td>
+      <td><span class="score na">N/A</span></td>
+      <td><span class="score na">N/A</span></td>
+      <td><span class="score na">N/A</span></td>
+      <td><span class="score na">N/A</span></td>
+      <td><span class="score na">N/A</span></td>
+      <td><span class="score na">N/A</span></td>
+      <td><span class="score na">N/A</span></td>
+      <td><span class="score s5">5</span></td>
+      <td><span class="score na">N/A</span></td>
+      <td><span class="score na">N/A</span></td>
+    </tr>
+
+    <tr class="group"><td colspan="19">Incumbents · Platform plays</td></tr>
+
+    <tr data-cat="incumbent" data-scores="7,6,10,8,9,5,7,8,7,8,9,9,8,10,7" data-overall="7.9" data-tested="15/15" data-name="Microsoft Copilot">
+      <td><span class="co-name">Microsoft Copilot</span><span class="co-hq">Redmond, WA · Copilot Memory GA 2026</span></td>
+      <td class="funding">incumbent</td>
+      <td><span class="overall hi">7.9</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s10">10</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s9">9</span></td>
+      <td><span class="score s5">5</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s9">9</span></td>
+      <td><span class="score s9">9</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s10">10</span></td>
+      <td><span class="score s7">7</span></td>
+    </tr>
+
+    <tr data-cat="incumbent" data-scores="6,5,8,7,7,4,6,7,6,7,7,7,7,8,6" data-overall="6.6" data-tested="15/15" data-name="Glean">
+      <td><span class="co-name">Glean</span><span class="co-hq">Palo Alto · 2019 · $7.2B</span></td>
+      <td class="funding">$765M</td>
+      <td><span class="overall mid">6.6</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s5">5</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s4">4</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s6">6</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s7">7</span></td>
+      <td><span class="score s8">8</span></td>
+      <td><span class="score s6">6</span></td>
+    </tr>
+
+  </tbody>
+</table>
+</div>
+</div>
+
+<div class="method">
+  <h2>Key signals from the scorecard</h2>
+  <p><b>The incumbents score highest overall.</b> Microsoft Copilot Memory leads at 7.9 because it ships across every dimension with the deepest integration surface. That is the finding: the buyer pays for breadth and trust, not depth of persona fidelity.</p>
+  <p><b>Viven and Delphi tie at 7.3 among pure-play twins.</b> They lead on different axes: Viven on privacy, governance and enterprise deployment; Delphi on grounding, citations and embodiment. Neither has published a latency benchmark or revenue figure.</p>
+  <p><b>No product scores above 8 overall.</b> The category is nascent. Independent verification is missing across the board. Treat every score as directional, not definitive.</p>
+</div>
+
+</div><!-- /scorecardView -->
+
+<!-- ══════════════ DIMENSIONS VIEW ══════════════ -->
+<div class="dims-panel" id="dimensionsView">
+  <h1 style="margin-bottom:6px">Dimensions</h1>
+  <p class="sub">15 dimensions. Each evaluates one capability that matters when an organization deploys a digital twin of a specific employee or expert.</p>
+
+  <div class="dims-grid">
+    <div class="dim-card">
+      <div class="dim-num">01</div>
+      <div class="dim-name">Knowledge Capture</div>
+      <div class="dim-test"><b>Test:</b> Feed 50+ documents and meeting transcripts, then quiz the twin on obscure details only the original person would know.</div>
+      <div class="dim-desc">How completely and accurately the twin ingests, structures, and retains a person's knowledge corpus. Includes depth of understanding, not just keyword retrieval.</div>
+    </div>
+
+    <div class="dim-card">
+      <div class="dim-num">02</div>
+      <div class="dim-name">Response Fidelity</div>
+      <div class="dim-test"><b>Test:</b> Compare the twin's answers to the real person's answers on 10 domain questions. Score alignment of voice, reasoning, and specificity.</div>
+      <div class="dim-desc">How closely the twin reproduces the original person's communication style, expertise, judgment, and decision-making patterns. Not just facts — the how, not just the what.</div>
+    </div>
+
+    <div class="dim-card">
+      <div class="dim-num">03</div>
+      <div class="dim-name">Source Integrations</div>
+      <div class="dim-test"><b>Test:</b> Connect to 5 enterprise tools (email, chat, docs, calendar, CRM). Count working out-of-the-box connectors.</div>
+      <div class="dim-desc">Breadth and depth of data source connectors. Gmail, Slack, Teams, Drive, SharePoint, Notion, Jira, Confluence, Salesforce, meeting transcripts, and more.</div>
+    </div>
+
+    <div class="dim-card">
+      <div class="dim-num">04</div>
+      <div class="dim-name">Privacy &amp; Governance</div>
+      <div class="dim-test"><b>Test:</b> Set access rules restricting who can query what. Verify enforcement. Check for audit trails, encryption, compliance certifications.</div>
+      <div class="dim-desc">RBAC, audit logging, data encryption at rest and in transit, SOC 2 / ISO 27001, GDPR / CCPA compliance, data residency controls, and consent management.</div>
+    </div>
+
+    <div class="dim-card">
+      <div class="dim-num">05</div>
+      <div class="dim-name">Deployment Options</div>
+      <div class="dim-test"><b>Test:</b> Attempt to deploy as cloud SaaS, on-premises, hybrid, and BYOC (bring your own cloud). Score flexibility.</div>
+      <div class="dim-desc">Where and how the product can run. Cloud-only SaaS, private cloud, on-premises, hybrid, VPC peering, air-gapped, and bring-your-own-cloud configurations.</div>
+    </div>
+
+    <div class="dim-card">
+      <div class="dim-num">06</div>
+      <div class="dim-name">Voice &amp; Avatar</div>
+      <div class="dim-test"><b>Test:</b> Generate a voice response and a video response. Score naturalness, likeness, and latency.</div>
+      <div class="dim-desc">Text-only vs. voice cloning vs. full video avatar. Quality of voice synthesis, lip-sync accuracy, real-time conversation capability, and visual fidelity.</div>
+    </div>
+
+    <div class="dim-card">
+      <div class="dim-num">07</div>
+      <div class="dim-name">Grounding &amp; Citations</div>
+      <div class="dim-test"><b>Test:</b> Ask 10 questions requiring sourced answers. Score citation accuracy, hallucination rate, and "I don't know" calibration.</div>
+      <div class="dim-desc">Whether answers cite their sources, link back to original documents, and refuse to answer when knowledge is absent. The inverse of hallucination.</div>
+    </div>
+
+    <div class="dim-card">
+      <div class="dim-num">08</div>
+      <div class="dim-name">Setup Speed</div>
+      <div class="dim-test"><b>Test:</b> Time from zero to first working twin. Include data ingestion, configuration, and initial query readiness.</div>
+      <div class="dim-desc">How quickly a new twin becomes operational. Minutes (self-serve), hours (guided), days (enterprise deployment), or weeks (custom integration).</div>
+    </div>
+
+    <div class="dim-card">
+      <div class="dim-num">09</div>
+      <div class="dim-name">Query Latency</div>
+      <div class="dim-test"><b>Test:</b> Measure time-to-first-token and full response time for 10 knowledge queries of varying complexity.</div>
+      <div class="dim-desc">Speed of the twin's responses. Sub-second for simple retrieval, under 5 seconds for complex reasoning. Includes infrastructure performance claims.</div>
+    </div>
+
+    <div class="dim-card">
+      <div class="dim-num">10</div>
+      <div class="dim-name">Team &amp; Org Features</div>
+      <div class="dim-test"><b>Test:</b> Set up a team twin spanning 3 people. Query the team as a unit. Test admin console, user management, and cross-querying.</div>
+      <div class="dim-desc">Org-wide capabilities: team twins, cross-employee querying, admin console, user provisioning, department-level views, and organizational knowledge graphs.</div>
+    </div>
+
+    <div class="dim-card">
+      <div class="dim-num">11</div>
+      <div class="dim-name">API &amp; Extensibility</div>
+      <div class="dim-test"><b>Test:</b> Build a custom integration using the published API or SDK. Score documentation quality, endpoint coverage, and developer experience.</div>
+      <div class="dim-desc">Developer access: REST/GraphQL APIs, SDKs, webhooks, embeddable widgets, and documentation. The ability to build on top of the twin.</div>
+    </div>
+
+    <div class="dim-card">
+      <div class="dim-num">12</div>
+      <div class="dim-name">Knowledge Freshness</div>
+      <div class="dim-test"><b>Test:</b> Add new data (a Slack message, a document edit). Query for it. Measure sync delay.</div>
+      <div class="dim-desc">How quickly new information becomes queryable. Real-time streaming, hourly batch, daily reindex, or manual trigger. Includes change detection and incremental updates.</div>
+    </div>
+
+    <div class="dim-card">
+      <div class="dim-num">13</div>
+      <div class="dim-name">Access Control Granularity</div>
+      <div class="dim-test"><b>Test:</b> Set per-person, per-topic, per-document access rules. Verify the twin respects them when queried by different users.</div>
+      <div class="dim-desc">Fine-grained authorization: pairwise privacy (twin answers differently based on who asks), topic-level restrictions, document-level ACLs, and temporal access windows.</div>
+    </div>
+
+    <div class="dim-card">
+      <div class="dim-num">14</div>
+      <div class="dim-name">Multi-language</div>
+      <div class="dim-test"><b>Test:</b> Query the twin in 3 non-English languages. Score response quality, cultural nuance, and consistency with English answers.</div>
+      <div class="dim-desc">Language support breadth and quality. Number of supported languages, quality of non-English responses, cross-lingual retrieval, and culturally appropriate communication.</div>
+    </div>
+
+    <div class="dim-card">
+      <div class="dim-num">15</div>
+      <div class="dim-name">Pricing Accessibility</div>
+      <div class="dim-test"><b>Test:</b> Evaluate published pricing, free tiers, pilot programs, and total cost of ownership for a 50-person deployment.</div>
+      <div class="dim-desc">Transparency and accessibility of pricing. Published pricing vs. "contact sales." Per-user, per-twin, or per-query models. Free tiers, trials, and pilot programs.</div>
+    </div>
+  </div>
+
+  <div class="method" style="margin-top:clamp(20px,3vh,32px)">
+    <h2>How to read scores</h2>
+    <div class="scale-row">
+      <span class="scale-item"><span class="score s10">10</span> best-in-class</span>
+      <span class="scale-item"><span class="score s8">8</span> strong</span>
+      <span class="scale-item"><span class="score s6">6</span> adequate</span>
+      <span class="scale-item"><span class="score s4">4</span> weak</span>
+      <span class="scale-item"><span class="score s2">2</span> poor</span>
+      <span class="scale-item"><span class="score na">—</span> not tested</span>
+      <span class="scale-item"><span class="score na">N/A</span> doesn't apply</span>
+    </div>
+    <p>Overall is the mean of scored dimensions only. Untested (—) and N/A dimensions are excluded from the mean. A product with 5/15 tested and a 9.0 overall is not "better" than one with 15/15 tested and a 7.0 — the tested fraction matters.</p>
+  </div>
+</div>
+
+<!-- ══════════════ METHODOLOGY VIEW ══════════════ -->
+<div class="dims-panel" id="methodologyView">
+  <h1 style="margin-bottom:6px">How scoring works</h1>
+  <p class="sub" style="margin-bottom:clamp(20px,3vh,32px)">One scale, open criteria, vendor-reported data. Independent testing is the goal; this version is a starting framework.</p>
+
+  <div class="method">
+    <h2>Scale</h2>
+    <p>Every dimension is scored <b>1–10</b> after evaluating the product against published criteria. Scores are assigned based on public documentation, product demos, engineering blogs, customer case studies, and press coverage. <b>No score comes from private access or paid testing.</b></p>
+    <div class="scale-row">
+      <span class="scale-item"><span class="score s10">9–10</span> Best-in-class. Sets the standard for the category.</span>
+    </div>
+    <div class="scale-row">
+      <span class="scale-item"><span class="score s7">7–8</span> Strong. Competitive, with clear evidence of capability.</span>
+    </div>
+    <div class="scale-row">
+      <span class="scale-item"><span class="score s5">5–6</span> Adequate. Functional but with notable gaps or missing evidence.</span>
+    </div>
+    <div class="scale-row">
+      <span class="scale-item"><span class="score s3">3–4</span> Weak. Present but limited. Significant improvement needed.</span>
+    </div>
+    <div class="scale-row">
+      <span class="scale-item"><span class="score s1">1–2</span> Poor. Barely functional or fundamentally missing.</span>
+    </div>
+  </div>
+
+  <div class="method">
+    <h2>Overall calculation</h2>
+    <p>Overall = mean of all scored dimensions. Untested (—) and N/A dimensions are excluded. This means a product with fewer tested dimensions may show a higher overall if its tested areas are strong. <b>Always read Overall alongside the Tested fraction.</b></p>
+    <p>A product scoring 7.5 on 13/15 dimensions tells you more than one scoring 8.5 on 3/15.</p>
+  </div>
+
+  <div class="method">
+    <h2>Category definitions</h2>
+    <p><b>Enterprise / Employee twins:</b> Products whose primary use case is replicating an employee's knowledge for organizational use — onboarding, knowledge continuity, cross-team querying.</p>
+    <p><b>Creator / Expert twins:</b> Products that clone a creator, coach, or expert's knowledge and personality for audience engagement, lead generation, or monetization.</p>
+    <p><b>Adjacent:</b> Infrastructure or simulation products that overlap with person-replica use cases but are not primarily about replicating a named individual's knowledge.</p>
+    <p><b>Incumbents:</b> Platform companies whose products absorb digital-twin capabilities through personalization, memory, or knowledge-graph features.</p>
+  </div>
+
+  <div class="method">
+    <h2>Data sources &amp; caveats</h2>
+    <p>Scores are derived from: company websites, product documentation, engineering blogs, press releases, analyst coverage (Gartner, Forrester), funding announcements, customer case studies, and live product demos where accessible.</p>
+    <p><b>Key caveats:</b></p>
+    <p>• All data is vendor-reported unless noted. No independent lab testing has been performed.</p>
+    <p>• Funding totals and HQ details occasionally conflict across aggregators (Tracxn, Crunchbase, Dealroom).</p>
+    <p>• "Not tested" (—) means insufficient data to score, not that the capability is absent.</p>
+    <p>• Scores will change as products ship new features and as independent verification becomes available.</p>
+    <p>• The benchmark does not test for ethical considerations (consent, digital likeness rights, post-employment persistence) — those are policy questions, not product capabilities.</p>
+  </div>
+
+  <div class="method">
+    <h2>Benchmark version</h2>
+    <p><b>v0.1</b> · September 15, 2026 · 14 products · 15 dimensions · Scoring based on public data only.</p>
+    <p>Future versions will add: independent testing scores, head-to-head comparisons, use-case-specific rankings, and new products as they emerge.</p>
+  </div>
+</div>
+
+<div class="foot">
+  <b>Employee Digital Twin Benchmark v0.1</b> · Prepared September 2026. Scores derived from public sources only — company announcements, engineering blogs, product documentation, and press coverage. All scores are directional and subject to revision as independent verification becomes available. <b>No vendor paid for inclusion or a higher score.</b><br>
+  <a href="https://vivekally.github.io/digital-twins/">vivekally.github.io/digital-twins</a> · Research deck and benchmark by Vivek Ally
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+(function(){
+  // -- category filter --
+  var pills = document.querySelectorAll('.pill');
+  var rows = document.querySelectorAll('table.sc tbody tr[data-cat]');
+  var groups = document.querySelectorAll('table.sc tbody tr.group');
+
+  pills.forEach(function(p){
+    p.addEventListener('click', function(){
+      pills.forEach(function(x){ x.classList.remove('on'); });
+      p.classList.add('on');
+      var cat = p.getAttribute('data-cat');
+      rows.forEach(function(r){
+        if (cat === 'all' || r.getAttribute('data-cat') === cat) {
+          r.classList.remove('hidden');
+        } else {
+          r.classList.add('hidden');
+        }
+      });
+      groups.forEach(function(g){
+        if (cat === 'all') { g.classList.remove('hidden'); return; }
+        var next = g.nextElementSibling;
+        var anyVisible = false;
+        while (next && !next.classList.contains('group')) {
+          if (!next.classList.contains('hidden') && next.hasAttribute('data-cat')) anyVisible = true;
+          next = next.nextElementSibling;
+        }
+        g.classList.toggle('hidden', !anyVisible);
+      });
+    });
+  });
+
+  // -- view tabs --
+  var vtabs = document.querySelectorAll('.vtab');
+  var views = {
+    scorecard: document.getElementById('scorecardView'),
+    dimensions: document.getElementById('dimensionsView'),
+    methodology: document.getElementById('methodologyView')
+  };
+  vtabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      vtabs.forEach(function(x){ x.classList.remove('on'); });
+      t.classList.add('on');
+      var v = t.getAttribute('data-view');
+      Object.keys(views).forEach(function(k){
+        if (k === v) { views[k].classList.add('visible'); views[k].style.display = ''; }
+        else { views[k].classList.remove('visible'); views[k].style.display = 'none'; }
+      });
+      if (v === 'scorecard') {
+        document.getElementById('scorecardView').style.display = '';
+      }
+    });
+  });
+  views.dimensions.style.display = 'none';
+  views.methodology.style.display = 'none';
+
+  // -- sort --
+  var table = document.getElementById('scoreTable');
+  var headers = table.querySelectorAll('th.sort');
+  headers.forEach(function(th){
+    th.addEventListener('click', function(){
+      var col = th.getAttribute('data-col');
+      var dir = th.classList.contains('desc') ? 'asc' : 'desc';
+      headers.forEach(function(h){ h.classList.remove('asc','desc'); });
+      th.classList.add(dir);
+
+      var tbody = table.querySelector('tbody');
+      var dataRows = Array.prototype.slice.call(tbody.querySelectorAll('tr[data-cat]'));
+      var groupRows = Array.prototype.slice.call(tbody.querySelectorAll('tr.group'));
+
+      dataRows.sort(function(a, b){
+        var va, vb;
+        if (col === 'name') {
+          va = a.getAttribute('data-name');
+          vb = b.getAttribute('data-name');
+          return dir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+        } else if (col === 'overall') {
+          va = parseFloat(a.getAttribute('data-overall')) || 0;
+          vb = parseFloat(b.getAttribute('data-overall')) || 0;
+        } else if (col === 'tested') {
+          va = parseInt(a.getAttribute('data-tested')) || 0;
+          vb = parseInt(b.getAttribute('data-tested')) || 0;
+        } else {
+          var idx = parseInt(col);
+          va = parseInt((a.getAttribute('data-scores') || '').split(',')[idx]) || 0;
+          vb = parseInt((b.getAttribute('data-scores') || '').split(',')[idx]) || 0;
+        }
+        return dir === 'desc' ? vb - va : va - vb;
+      });
+
+      groupRows.forEach(function(g){ g.remove(); });
+      dataRows.forEach(function(r){ tbody.appendChild(r); });
+    });
+  });
+})();
+</script>
+</body>
+</html>
