@@ -195,6 +195,15 @@ table.sc tbody tr.hidden{display:none}
   font-variant-numeric:tabular-nums;white-space:nowrap;
 }
 
+/* accelerator tags */
+.tag{
+  display:inline-block;font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;
+  padding:2px 5px;border-radius:3px;margin-left:5px;vertical-align:middle;
+  font-weight:600;text-transform:uppercase;
+}
+.tag.yc{background:rgba(245,165,36,.15);color:#F5A524}
+.tag.a16z{background:rgba(124,156,255,.15);color:#7C9CFF}
+
 /* group header rows */
 tr.group td{
   background:rgba(76,201,240,.06);color:var(--brain);
@@ -304,6 +313,7 @@ tr.group td{
       <a href="index.html">Research Deck</a>
       <a href="benchmark.html">Twin Benchmark</a>
       <a href="second-brain.html" class="active">Brain Benchmark</a>
+      <a href="https://vivekally.github.io/coconut-ai-analysis-2026/competitors.html" target="_blank">Competitor DB</a>
     </div>
   </div>
 </nav>
@@ -312,22 +322,25 @@ tr.group td{
 
 <div class="hero">
   <h1>Second Brain <em>Benchmark</em></h1>
-  <p class="sub">20 products, 15 dimensions, one scale. Every AI-powered knowledge management tool that serves as a second brain &mdash; for companies or individuals &mdash; scored on what they actually ship. <b>Two categories: Company Brain (team knowledge) and Personal Brain (individual knowledge).</b></p>
+  <p class="sub">60 products, 15 dimensions, one scale. Every AI-powered knowledge management tool &mdash; platform AI, company brains, enterprise knowledge, personal brains, and memory infrastructure &mdash; scored on what they actually ship. <b>Five categories spanning the full second-brain landscape.</b> Includes companies from <a href="https://vivekally.github.io/coconut-ai-analysis-2026/competitors.html" target="_blank" style="color:var(--brain);text-decoration:none;border-bottom:1px solid rgba(76,201,240,.3)">Coconut AI Competitor Database</a>.</p>
 
   <div class="meta-row">
-    <span class="meta"><b>Benchmark v0.1</b></span>
-    <span class="meta"><b>20</b> products</span>
+    <span class="meta"><b>Benchmark v0.2</b></span>
+    <span class="meta"><b>60</b> products</span>
     <span class="meta"><b>15</b> dimensions</span>
-    <span class="meta">last updated <b>Sep 15, 2026</b></span>
+    <span class="meta">last updated <b>Sep 17, 2026</b></span>
     <span class="meta">by <b>Vivek Ally</b> · <a href="https://vivekally.github.io/digital-twins/" style="color:var(--brain);text-decoration:none;border-bottom:1px solid rgba(76,201,240,.3)">vivekally.github.io/digital-twins</a></span>
   </div>
 </div>
 
 <!-- category pills -->
 <div class="pills" id="pills">
-  <button class="pill on" data-cat="all">All<span class="cnt">20</span></button>
-  <button class="pill" data-cat="company">Company Brain<span class="cnt">10</span></button>
+  <button class="pill on" data-cat="all">All<span class="cnt">60</span></button>
+  <button class="pill" data-cat="platform">Platform AI<span class="cnt">3</span></button>
+  <button class="pill" data-cat="company">Company Brain<span class="cnt">19</span></button>
+  <button class="pill" data-cat="enterprise">Enterprise Knowledge<span class="cnt">16</span></button>
   <button class="pill" data-cat="personal">Personal Brain<span class="cnt">10</span></button>
+  <button class="pill" data-cat="memory">Memory Infra<span class="cnt">12</span></button>
 </div>
 
 <!-- view tabs -->
@@ -341,7 +354,8 @@ tr.group td{
 <div id="scorecardView">
 
 <div class="status-bar">
-  <div class="status-item"><span class="status-dot cyan"></span> 20 products scored</div>
+  <div class="status-item"><span class="status-dot cyan"></span> 60 products scored</div>
+  <div class="status-item"><span class="status-dot green"></span> Includes <a href="https://vivekally.github.io/coconut-ai-analysis-2026/competitors.html" target="_blank" style="color:var(--brain);text-decoration:none;border-bottom:1px solid rgba(76,201,240,.3)">Coconut AI competitor database</a></div>
   <div class="status-item"><span class="status-dot gray"></span> Vendor-reported data; independent verification pending</div>
 </div>
 
@@ -372,28 +386,50 @@ tr.group td{
     </tr>
   </thead>
   <tbody>
-    <tr class="group"><td colspan="19">Company Brain · Team knowledge &amp; enterprise search</td></tr>
+    <!-- ═══ PLATFORM AI ═══ -->
+    <tr class="group"><td colspan="19">Platform AI · Model vendors with native context</td></tr>
+
+    <tr data-cat="platform" data-scores="9,8,7,10,6,9,9,8,10,8,5,7,5,9,3" data-overall="7.5" data-tested="15/15" data-name="Microsoft 365 Copilot">
+      <td><span class="co-name">Microsoft 365 Copilot</span><span class="co-hq">Redmond, WA · ~$3.8T mkt cap</span></td>
+      <td class="funding">incumbent</td>
+      <td><span class="overall hi">7.5</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s9">9</span></td><td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s10">10</span></td><td><span class="score s6">6</span></td><td><span class="score s9">9</span></td><td><span class="score s9">9</span></td><td><span class="score s8">8</span></td><td><span class="score s10">10</span></td><td><span class="score s8">8</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s9">9</span></td><td><span class="score s3">3</span></td>
+    </tr>
+
+    <tr data-cat="platform" data-scores="8,9,7,6,3,9,6,8,6,8,4,7,9,8,7" data-overall="7.0" data-tested="15/15" data-name="ChatGPT Memory">
+      <td><span class="co-name">ChatGPT Memory / Company Knowledge</span><span class="co-hq">San Francisco · OpenAI · ~$180B raised</span></td>
+      <td class="funding">~$180B</td>
+      <td><span class="overall hi">7.0</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s8">8</span></td><td><span class="score s9">9</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s3">3</span></td><td><span class="score s9">9</span></td><td><span class="score s6">6</span></td><td><span class="score s8">8</span></td><td><span class="score s6">6</span></td><td><span class="score s8">8</span></td><td><span class="score s4">4</span></td><td><span class="score s7">7</span></td><td><span class="score s9">9</span></td><td><span class="score s8">8</span></td><td><span class="score s7">7</span></td>
+    </tr>
+
+    <tr data-cat="platform" data-scores="8,9,7,6,3,9,7,7,6,8,5,7,9,7,7" data-overall="7.0" data-tested="15/15" data-name="Claude Projects">
+      <td><span class="co-name">Claude Projects / Cowork</span><span class="co-hq">San Francisco · Anthropic · ~$72B raised</span></td>
+      <td class="funding">~$72B</td>
+      <td><span class="overall hi">7.0</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s8">8</span></td><td><span class="score s9">9</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s3">3</span></td><td><span class="score s9">9</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s8">8</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s9">9</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td>
+    </tr>
+
+    <!-- ═══ COMPANY BRAIN ═══ -->
+    <tr class="group"><td colspan="19">Company Brain · Team knowledge, enterprise search &amp; pure-play brains</td></tr>
 
     <tr data-cat="company" data-scores="8,8,9,7,7,9,6,9,10,8,8,8,9,9,8" data-overall="8.2" data-tested="15/15" data-name="Notion AI">
       <td><span class="co-name">Notion AI</span><span class="co-hq">San Francisco · 2013</span></td>
       <td class="funding">$418M · $11B</td>
       <td><span class="overall hi">8.2</span></td>
       <td class="tested">15/15</td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s10">10</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s8">8</span></td>
+      <td><span class="score s8">8</span></td><td><span class="score s8">8</span></td><td><span class="score s9">9</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s9">9</span></td><td><span class="score s6">6</span></td><td><span class="score s9">9</span></td><td><span class="score s10">10</span></td><td><span class="score s8">8</span></td><td><span class="score s8">8</span></td><td><span class="score s8">8</span></td><td><span class="score s9">9</span></td><td><span class="score s9">9</span></td><td><span class="score s8">8</span></td>
+    </tr>
+
+    <tr data-cat="company" data-scores="8,7,7,7,9,5,10,6,7,9,10,5,5,7,10" data-overall="7.5" data-tested="15/15" data-name="GBrain">
+      <td><span class="co-name">GBrain <span class="tag yc">OSS</span></span><span class="co-hq">Open source · MIT · 28K stars</span></td>
+      <td class="funding">open source</td>
+      <td><span class="overall hi">7.5</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s9">9</span></td><td><span class="score s5">5</span></td><td><span class="score s10">10</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s9">9</span></td><td><span class="score s10">10</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s10">10</span></td>
     </tr>
 
     <tr data-cat="company" data-scores="7,8,7,9,6,8,9,8,9,7,5,7,6,9,5" data-overall="7.3" data-tested="15/15" data-name="Microsoft Loop">
@@ -401,21 +437,7 @@ tr.group td{
       <td class="funding">incumbent</td>
       <td><span class="overall hi">7.3</span></td>
       <td class="tested">15/15</td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s5">5</span></td>
+      <td><span class="score s7">7</span></td><td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s9">9</span></td><td><span class="score s6">6</span></td><td><span class="score s8">8</span></td><td><span class="score s9">9</span></td><td><span class="score s8">8</span></td><td><span class="score s9">9</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s9">9</span></td><td><span class="score s5">5</span></td>
     </tr>
 
     <tr data-cat="company" data-scores="7,7,7,9,6,7,8,7,9,9,7,7,6,8,6" data-overall="7.3" data-tested="15/15" data-name="Confluence + Atlassian Intelligence">
@@ -423,21 +445,7 @@ tr.group td{
       <td class="funding">$393M · $44B mkt</td>
       <td><span class="overall hi">7.3</span></td>
       <td class="tested">15/15</td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s6">6</span></td>
+      <td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s9">9</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s9">9</span></td><td><span class="score s9">9</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s8">8</span></td><td><span class="score s6">6</span></td>
     </tr>
 
     <tr data-cat="company" data-scores="10,8,6,10,5,6,9,7,7,8,5,7,5,9,4" data-overall="7.1" data-tested="15/15" data-name="Glean">
@@ -445,21 +453,7 @@ tr.group td{
       <td class="funding">$765M</td>
       <td><span class="overall hi">7.1</span></td>
       <td class="tested">15/15</td>
-      <td><span class="score s10">10</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s10">10</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s4">4</span></td>
+      <td><span class="score s10">10</span></td><td><span class="score s8">8</span></td><td><span class="score s6">6</span></td><td><span class="score s10">10</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s9">9</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s8">8</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s9">9</span></td><td><span class="score s4">4</span></td>
     </tr>
 
     <tr data-cat="company" data-scores="8,7,8,8,5,7,7,7,8,7,6,6,8,8,7" data-overall="7.1" data-tested="15/15" data-name="Guru">
@@ -467,21 +461,15 @@ tr.group td{
       <td class="funding">~$68M</td>
       <td><span class="overall hi">7.1</span></td>
       <td class="tested">15/15</td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s7">7</span></td>
+      <td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s8">8</span></td><td><span class="score s8">8</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s8">8</span></td><td><span class="score s8">8</span></td><td><span class="score s7">7</span></td>
+    </tr>
+
+    <tr data-cat="company" data-scores="8,7,8,8,8,6,7,6,7,8,5,5,6,8,6" data-overall="6.9" data-tested="15/15" data-name="Hyper">
+      <td><span class="co-name">Hyper <span class="tag yc">YC</span></span><span class="co-hq">San Francisco · 2025 · YC P26</span></td>
+      <td class="funding">YC P26</td>
+      <td><span class="overall mid">6.9</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s8">8</span></td><td><span class="score s8">8</span></td><td><span class="score s8">8</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s8">8</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s8">8</span></td><td><span class="score s6">6</span></td>
     </tr>
 
     <tr data-cat="company" data-scores="7,7,7,6,5,7,7,7,7,5,7,6,8,7,7" data-overall="6.7" data-tested="15/15" data-name="Slite">
@@ -489,21 +477,23 @@ tr.group td{
       <td class="funding">~$15M</td>
       <td><span class="overall mid">6.7</span></td>
       <td class="tested">15/15</td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
+      <td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td>
+    </tr>
+
+    <tr data-cat="company" data-scores="7,7,7,7,8,6,6,5,6,6,7,6,6,7,6" data-overall="6.5" data-tested="15/15" data-name="Cerenovus">
+      <td><span class="co-name">Cerenovus <span class="tag yc">YC</span></span><span class="co-hq">2025 · YC S26</span></td>
+      <td class="funding">YC S26</td>
+      <td><span class="overall mid">6.5</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s8">8</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td>
+    </tr>
+
+    <tr data-cat="company" data-scores="7,7,7,7,5,7,6,6,7,7,5,5,7,8,6" data-overall="6.5" data-tested="15/15" data-name="Memory Store">
+      <td><span class="co-name">Memory Store <span class="tag yc">YC</span></span><span class="co-hq">2025 · YC P26</span></td>
+      <td class="funding">YC P26</td>
+      <td><span class="overall mid">6.5</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s8">8</span></td><td><span class="score s6">6</span></td>
     </tr>
 
     <tr data-cat="company" data-scores="8,9,6,5,3,7,7,6,5,3,5,7,10,5,10" data-overall="6.4" data-tested="15/15" data-name="Google NotebookLM">
@@ -511,21 +501,15 @@ tr.group td{
       <td class="funding">incumbent</td>
       <td><span class="overall mid">6.4</span></td>
       <td class="tested">15/15</td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s3">3</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s3">3</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s10">10</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s10">10</span></td>
+      <td><span class="score s8">8</span></td><td><span class="score s9">9</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s3">3</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s3">3</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s10">10</span></td><td><span class="score s5">5</span></td><td><span class="score s10">10</span></td>
+    </tr>
+
+    <tr data-cat="company" data-scores="7,7,7,8,6,6,6,5,7,7,5,5,6,7,6" data-overall="6.3" data-tested="15/15" data-name="Glen">
+      <td><span class="co-name">Glen <span class="tag yc">YC</span></span><span class="co-hq">2025 · YC S26</span></td>
+      <td class="funding">YC S26</td>
+      <td><span class="overall mid">6.3</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s8">8</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td>
     </tr>
 
     <tr data-cat="company" data-scores="8,7,7,7,4,6,8,6,6,6,5,6,6,7,5" data-overall="6.3" data-tested="15/15" data-name="Shelf.io">
@@ -533,21 +517,7 @@ tr.group td{
       <td class="funding">~$61M</td>
       <td><span class="overall mid">6.3</span></td>
       <td class="tested">15/15</td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s4">4</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s5">5</span></td>
+      <td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s4">4</span></td><td><span class="score s6">6</span></td><td><span class="score s8">8</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td>
     </tr>
 
     <tr data-cat="company" data-scores="6,5,6,7,6,5,6,6,7,5,7,6,7,7,7" data-overall="6.2" data-tested="15/15" data-name="Slab">
@@ -555,45 +525,181 @@ tr.group td{
       <td class="funding">~$2.2M</td>
       <td><span class="overall lo">6.2</span></td>
       <td class="tested">15/15</td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
+      <td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td>
+    </tr>
+
+    <tr data-cat="company" data-scores="7,6,7,7,5,5,6,6,6,6,5,5,7,7,6" data-overall="6.2" data-tested="15/15" data-name="Savant">
+      <td><span class="co-name">Savant <span class="tag yc">YC</span></span><span class="co-hq">2025 · YC Spring 2026</span></td>
+      <td class="funding">YC P26</td>
+      <td><span class="overall lo">6.2</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td>
+    </tr>
+
+    <tr data-cat="company" data-scores="7,7,6,7,6,5,6,5,6,7,5,4,6,6,5" data-overall="5.9" data-tested="15/15" data-name="Amdahl">
+      <td><span class="co-name">Amdahl <span class="tag a16z">A16Z</span></span><span class="co-hq">2025 · a16z Speedrun + Precursor</span></td>
+      <td class="funding">a16z Speedrun</td>
+      <td><span class="overall lo">5.9</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td>
+    </tr>
+
+    <tr data-cat="company" data-scores="6,6,6,6,7,5,6,5,6,5,5,4,5,6,5" data-overall="5.5" data-tested="15/15" data-name="Hyperspell">
+      <td><span class="co-name">Hyperspell</span><span class="co-hq">Early stage</span></td>
+      <td class="funding">early stage</td>
+      <td><span class="overall lo">5.5</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td>
     </tr>
 
     <tr data-cat="company" data-scores="6,5,6,6,4,5,4,5,6,5,6,5,7,6,7" data-overall="5.4" data-tested="15/15" data-name="Tettra">
-      <td><span class="co-name">Tettra</span><span class="co-hq">Boston · 2017</span></td>
-      <td class="funding">~$1.8M</td>
+      <td><span class="co-name">Tettra</span><span class="co-hq">Boston · 2017 · acq. GSoft 2023</span></td>
+      <td class="funding">~$1.5M</td>
       <td><span class="overall lo">5.4</span></td>
       <td class="tested">15/15</td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s4">4</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s4">4</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s7">7</span></td>
+      <td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td>
     </tr>
 
+    <tr data-cat="company" data-scores="6,5,6,6,5,4,6,5,5,6,5,4,5,6,5" data-overall="5.3" data-tested="15/15" data-name="Corvera">
+      <td><span class="co-name">Corvera <span class="tag yc">YC</span></span><span class="co-hq">2025 · YC W26 · CPG vertical</span></td>
+      <td class="funding">YC W26</td>
+      <td><span class="overall lo">5.3</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td>
+    </tr>
+
+    <!-- ═══ ENTERPRISE KNOWLEDGE ═══ -->
+    <tr class="group"><td colspan="19">Enterprise Knowledge · Funded incumbents &amp; work AI platforms</td></tr>
+
+    <tr data-cat="enterprise" data-scores="9,8,7,9,5,7,7,7,8,8,5,6,6,8,5" data-overall="7.0" data-tested="15/15" data-name="Dust">
+      <td><span class="co-name">Dust</span><span class="co-hq">Paris · 2022</span></td>
+      <td class="funding">$60M+</td>
+      <td><span class="overall hi">7.0</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s9">9</span></td><td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s9">9</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s8">8</span></td><td><span class="score s8">8</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s8">8</span></td><td><span class="score s5">5</span></td>
+    </tr>
+
+    <tr data-cat="enterprise" data-scores="7,6,7,7,5,7,6,8,9,7,6,6,7,8,6" data-overall="6.8" data-tested="15/15" data-name="ClickUp Brain">
+      <td><span class="co-name">ClickUp Brain</span><span class="co-hq">San Diego · part of ClickUp</span></td>
+      <td class="funding">~$538M</td>
+      <td><span class="overall mid">6.8</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s8">8</span></td><td><span class="score s9">9</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s8">8</span></td><td><span class="score s6">6</span></td>
+    </tr>
+
+    <tr data-cat="enterprise" data-scores="8,8,7,8,9,6,10,6,7,8,4,6,2,7,2" data-overall="6.5" data-tested="15/15" data-name="Palantir AIP">
+      <td><span class="co-name">Palantir AIP</span><span class="co-hq">Denver · ~$280B mkt cap</span></td>
+      <td class="funding">public</td>
+      <td><span class="overall mid">6.5</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s8">8</span></td><td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s8">8</span></td><td><span class="score s9">9</span></td><td><span class="score s6">6</span></td><td><span class="score s10">10</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s8">8</span></td><td><span class="score s4">4</span></td><td><span class="score s6">6</span></td><td><span class="score s2">2</span></td><td><span class="score s7">7</span></td><td><span class="score s2">2</span></td>
+    </tr>
+
+    <tr data-cat="enterprise" data-scores="8,7,7,7,8,6,7,7,7,7,5,5,5,7,5" data-overall="6.5" data-tested="15/15" data-name="DevRev">
+      <td><span class="co-name">DevRev</span><span class="co-hq">Palo Alto · 2022 · $1.15B val</span></td>
+      <td class="funding">~$101M</td>
+      <td><span class="overall mid">6.5</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s8">8</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td>
+    </tr>
+
+    <tr data-cat="enterprise" data-scores="9,7,6,9,5,6,8,7,7,7,4,5,4,7,3" data-overall="6.3" data-tested="15/15" data-name="Moveworks">
+      <td><span class="co-name">Moveworks</span><span class="co-hq">Mountain View · acq. ServiceNow $2.85B</span></td>
+      <td class="funding">acq. $2.85B</td>
+      <td><span class="overall mid">6.3</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s9">9</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s9">9</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td><span class="score s7">7</span></td><td><span class="score s3">3</span></td>
+    </tr>
+
+    <tr data-cat="enterprise" data-scores="9,8,6,7,5,6,8,5,5,8,5,6,4,7,4" data-overall="6.2" data-tested="15/15" data-name="Contextual AI">
+      <td><span class="co-name">Contextual AI</span><span class="co-hq">San Francisco · 2023</span></td>
+      <td class="funding">$100M</td>
+      <td><span class="overall lo">6.2</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s9">9</span></td><td><span class="score s8">8</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s8">8</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s8">8</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s4">4</span></td><td><span class="score s7">7</span></td><td><span class="score s4">4</span></td>
+    </tr>
+
+    <tr data-cat="enterprise" data-scores="7,6,7,7,5,5,7,7,8,7,6,5,5,6,5" data-overall="6.2" data-tested="15/15" data-name="Stack Internal">
+      <td><span class="co-name">Stack Internal (Stack&nbsp;Overflow)</span><span class="co-hq">New York · acq. Prosus $1.8B</span></td>
+      <td class="funding">acq. $1.8B</td>
+      <td><span class="overall lo">6.2</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td>
+    </tr>
+
+    <tr data-cat="enterprise" data-scores="8,7,6,8,5,6,7,7,7,6,5,5,5,7,4" data-overall="6.2" data-tested="15/15" data-name="Sana">
+      <td><span class="co-name">Sana</span><span class="co-hq">Stockholm · acq. by Workday</span></td>
+      <td class="funding">acq. Workday</td>
+      <td><span class="overall lo">6.2</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s8">8</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s4">4</span></td>
+    </tr>
+
+    <tr data-cat="enterprise" data-scores="7,6,5,8,6,5,7,6,6,9,6,4,5,7,5" data-overall="6.1" data-tested="15/15" data-name="PromptQL (Hasura)">
+      <td><span class="co-name">PromptQL (Hasura)</span><span class="co-hq">San Francisco · 2017</span></td>
+      <td class="funding">$135M+</td>
+      <td><span class="overall lo">6.1</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s8">8</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s9">9</span></td><td><span class="score s6">6</span></td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td>
+    </tr>
+
+    <tr data-cat="enterprise" data-scores="7,6,7,6,6,5,8,5,6,6,5,7,5,6,5" data-overall="6.0" data-tested="15/15" data-name="Osseus">
+      <td><span class="co-name">Osseus <span class="tag yc">YC</span> <span class="tag a16z">A16Z</span></span><span class="co-hq">2025 · YC S26 · a16z Speedrun · R&amp;D vertical</span></td>
+      <td class="funding">YC + a16z</td>
+      <td><span class="overall lo">6.0</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s8">8</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td>
+    </tr>
+
+    <tr data-cat="enterprise" data-scores="8,7,5,8,4,5,6,6,6,5,4,5,6,7,5" data-overall="5.8" data-tested="15/15" data-name="Dashworks">
+      <td><span class="co-name">Dashworks</span><span class="co-hq">San Francisco · acq. HubSpot 2025</span></td>
+      <td class="funding">acq. HubSpot</td>
+      <td><span class="overall lo">5.8</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s8">8</span></td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td>
+    </tr>
+
+    <tr data-cat="enterprise" data-scores="7,6,6,7,5,5,7,6,6,6,5,5,5,6,5" data-overall="5.8" data-tested="15/15" data-name="Capacity">
+      <td><span class="co-name">Capacity</span><span class="co-hq">St. Louis · ~$100M+ ARR</span></td>
+      <td class="funding">$155M+</td>
+      <td><span class="overall lo">5.8</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td>
+    </tr>
+
+    <tr data-cat="enterprise" data-scores="7,6,6,7,5,5,6,6,5,7,5,4,5,7,4" data-overall="5.7" data-tested="15/15" data-name="ZoomInfo GTM AI">
+      <td><span class="co-name">ZoomInfo GTM AI</span><span class="co-hq">Vancouver, WA · public</span></td>
+      <td class="funding">public</td>
+      <td><span class="overall lo">5.7</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s4">4</span></td>
+    </tr>
+
+    <tr data-cat="enterprise" data-scores="7,5,6,5,4,4,6,6,7,5,5,6,6,5,5" data-overall="5.5" data-tested="15/15" data-name="Bloomfire">
+      <td><span class="co-name">Bloomfire</span><span class="co-hq">Austin · PE-backed</span></td>
+      <td class="funding">~$33M</td>
+      <td><span class="overall lo">5.5</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td>
+    </tr>
+
+    <tr data-cat="enterprise" data-scores="5,4,6,5,4,5,5,6,7,5,6,5,7,5,5" data-overall="5.3" data-tested="15/15" data-name="Almanac">
+      <td><span class="co-name">Almanac</span><span class="co-hq">San Francisco · shut down Jan 2025</span></td>
+      <td class="funding">~$43M</td>
+      <td><span class="overall lo">5.3</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td>
+    </tr>
+
+    <tr data-cat="enterprise" data-scores="7,5,5,6,7,3,6,6,7,5,4,3,5,5,4" data-overall="5.2" data-tested="15/15" data-name="Starmind">
+      <td><span class="co-name">Starmind</span><span class="co-hq">Zürich · acq. by Capacity 2026</span></td>
+      <td class="funding">~$15M</td>
+      <td><span class="overall lo">5.2</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s3">3</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td>
+    </tr>
+
+    <!-- ═══ PERSONAL BRAIN ═══ -->
     <tr class="group"><td colspan="19">Personal Brain · Individual knowledge &amp; note-taking</td></tr>
 
     <tr data-cat="personal" data-scores="6,6,7,5,10,6,10,9,3,10,10,7,7,8,9" data-overall="7.5" data-tested="15/15" data-name="Obsidian">
@@ -601,43 +707,15 @@ tr.group td{
       <td class="funding">bootstrapped</td>
       <td><span class="overall hi">7.5</span></td>
       <td class="tested">15/15</td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s10">10</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s10">10</span></td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s3">3</span></td>
-      <td><span class="score s10">10</span></td>
-      <td><span class="score s10">10</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s9">9</span></td>
+      <td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s10">10</span></td><td><span class="score s6">6</span></td><td><span class="score s10">10</span></td><td><span class="score s9">9</span></td><td><span class="score s3">3</span></td><td><span class="score s10">10</span></td><td><span class="score s10">10</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s8">8</span></td><td><span class="score s9">9</span></td>
     </tr>
 
     <tr data-cat="personal" data-scores="9,8,7,6,6,8,6,7,4,4,5,6,9,8,6" data-overall="6.6" data-tested="15/15" data-name="Mem.ai">
-      <td><span class="co-name">Mem.ai</span><span class="co-hq">San Francisco · 2020</span></td>
+      <td><span class="co-name">Mem.ai <span class="tag a16z">A16Z</span></span><span class="co-hq">San Francisco · 2020</span></td>
       <td class="funding">~$29M</td>
       <td><span class="overall mid">6.6</span></td>
       <td class="tested">15/15</td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s4">4</span></td>
-      <td><span class="score s4">4</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s6">6</span></td>
+      <td><span class="score s9">9</span></td><td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s8">8</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s9">9</span></td><td><span class="score s8">8</span></td><td><span class="score s6">6</span></td>
     </tr>
 
     <tr data-cat="personal" data-scores="7,7,7,5,8,7,8,8,3,4,7,7,8,8,5" data-overall="6.6" data-tested="15/15" data-name="Reflect">
@@ -645,21 +723,7 @@ tr.group td{
       <td class="funding">~$3M</td>
       <td><span class="overall mid">6.6</span></td>
       <td class="tested">15/15</td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s3">3</span></td>
-      <td><span class="score s4">4</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s5">5</span></td>
+      <td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s8">8</span></td><td><span class="score s8">8</span></td><td><span class="score s3">3</span></td><td><span class="score s4">4</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s8">8</span></td><td><span class="score s8">8</span></td><td><span class="score s5">5</span></td>
     </tr>
 
     <tr data-cat="personal" data-scores="5,4,6,4,9,4,10,7,3,8,9,6,6,7,10" data-overall="6.5" data-tested="15/15" data-name="Logseq">
@@ -667,21 +731,7 @@ tr.group td{
       <td class="funding">~$4.1M</td>
       <td><span class="overall mid">6.5</span></td>
       <td class="tested">15/15</td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s4">4</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s4">4</span></td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s4">4</span></td>
-      <td><span class="score s10">10</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s3">3</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s10">10</span></td>
+      <td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td><span class="score s6">6</span></td><td><span class="score s4">4</span></td><td><span class="score s9">9</span></td><td><span class="score s4">4</span></td><td><span class="score s10">10</span></td><td><span class="score s7">7</span></td><td><span class="score s3">3</span></td><td><span class="score s8">8</span></td><td><span class="score s9">9</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s10">10</span></td>
     </tr>
 
     <tr data-cat="personal" data-scores="8,7,9,7,3,6,7,6,4,4,4,8,8,10,6" data-overall="6.5" data-tested="15/15" data-name="Limitless">
@@ -689,21 +739,7 @@ tr.group td{
       <td class="funding">~$33M</td>
       <td><span class="overall mid">6.5</span></td>
       <td class="tested">15/15</td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s3">3</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s4">4</span></td>
-      <td><span class="score s4">4</span></td>
-      <td><span class="score s4">4</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s10">10</span></td>
-      <td><span class="score s6">6</span></td>
+      <td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s9">9</span></td><td><span class="score s7">7</span></td><td><span class="score s3">3</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td><span class="score s8">8</span></td><td><span class="score s8">8</span></td><td><span class="score s10">10</span></td><td><span class="score s6">6</span></td>
     </tr>
 
     <tr data-cat="personal" data-scores="6,6,7,5,7,6,6,7,4,4,6,7,7,7,8" data-overall="6.2" data-tested="15/15" data-name="Capacities">
@@ -711,21 +747,7 @@ tr.group td{
       <td class="funding">bootstrapped</td>
       <td><span class="overall lo">6.2</span></td>
       <td class="tested">15/15</td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s4">4</span></td>
-      <td><span class="score s4">4</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s8">8</span></td>
+      <td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s8">8</span></td>
     </tr>
 
     <tr data-cat="personal" data-scores="6,5,7,4,3,6,9,5,5,2,4,7,10,9,10" data-overall="6.1" data-tested="15/15" data-name="Apple Notes">
@@ -733,21 +755,7 @@ tr.group td{
       <td class="funding">incumbent</td>
       <td><span class="overall lo">6.1</span></td>
       <td class="tested">15/15</td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s4">4</span></td>
-      <td><span class="score s3">3</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s2">2</span></td>
-      <td><span class="score s4">4</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s10">10</span></td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s10">10</span></td>
+      <td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td><span class="score s6">6</span></td><td><span class="score s9">9</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s2">2</span></td><td><span class="score s4">4</span></td><td><span class="score s7">7</span></td><td><span class="score s10">10</span></td><td><span class="score s9">9</span></td><td><span class="score s10">10</span></td>
     </tr>
 
     <tr data-cat="personal" data-scores="7,7,7,5,8,7,6,5,5,5,4,5,5,7,7" data-overall="6.0" data-tested="15/15" data-name="Tana">
@@ -755,43 +763,15 @@ tr.group td{
       <td class="funding">$25M</td>
       <td><span class="overall lo">6.0</span></td>
       <td class="tested">15/15</td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s4">4</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
+      <td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td>
     </tr>
 
     <tr data-cat="personal" data-scores="6,6,7,4,8,5,6,7,4,3,7,7,6,7,5" data-overall="5.9" data-tested="15/15" data-name="Heptabase">
-      <td><span class="co-name">Heptabase</span><span class="co-hq">Taipei · 2021 · YC</span></td>
+      <td><span class="co-name">Heptabase <span class="tag yc">YC</span></span><span class="co-hq">Taipei · 2021 · YC</span></td>
       <td class="funding">~$2.2M</td>
       <td><span class="overall lo">5.9</span></td>
       <td class="tested">15/15</td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s4">4</span></td>
-      <td><span class="score s8">8</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s4">4</span></td>
-      <td><span class="score s3">3</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s5">5</span></td>
+      <td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s4">4</span></td><td><span class="score s8">8</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td>
     </tr>
 
     <tr data-cat="personal" data-scores="5,4,6,4,9,4,6,5,5,6,7,5,5,7,4" data-overall="5.5" data-tested="15/15" data-name="Roam Research">
@@ -799,21 +779,106 @@ tr.group td{
       <td class="funding">~$16M</td>
       <td><span class="overall lo">5.5</span></td>
       <td class="tested">15/15</td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s4">4</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s4">4</span></td>
-      <td><span class="score s9">9</span></td>
-      <td><span class="score s4">4</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s6">6</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s5">5</span></td>
-      <td><span class="score s7">7</span></td>
-      <td><span class="score s4">4</span></td>
+      <td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td><span class="score s6">6</span></td><td><span class="score s4">4</span></td><td><span class="score s9">9</span></td><td><span class="score s4">4</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s4">4</span></td>
+    </tr>
+
+    <!-- ═══ MEMORY INFRA ═══ -->
+    <tr class="group"><td colspan="19">Memory Infra · Agent memory &amp; knowledge infrastructure</td></tr>
+
+    <tr data-cat="memory" data-scores="8,7,7,7,5,6,9,6,5,8,7,7,6,6,9" data-overall="6.9" data-tested="15/15" data-name="Quivr">
+      <td><span class="co-name">Quivr <span class="tag yc">YC</span></span><span class="co-hq">Open source · YC W24 · 39K stars</span></td>
+      <td class="funding">YC W24</td>
+      <td><span class="overall mid">6.9</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s9">9</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s9">9</span></td>
+    </tr>
+
+    <tr data-cat="memory" data-scores="8,7,7,7,7,4,8,5,5,9,7,5,6,7,8" data-overall="6.7" data-tested="15/15" data-name="Mem0">
+      <td><span class="co-name">Mem0</span><span class="co-hq">Open source · 63K stars</span></td>
+      <td class="funding">$24.5M</td>
+      <td><span class="overall mid">6.7</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s4">4</span></td><td><span class="score s8">8</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s9">9</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s8">8</span></td>
+    </tr>
+
+    <tr data-cat="memory" data-scores="8,7,6,7,4,8,6,7,7,7,6,6,8,7,6" data-overall="6.7" data-tested="15/15" data-name="Mintlify">
+      <td><span class="co-name">Mintlify</span><span class="co-hq">San Francisco · ~$500M val</span></td>
+      <td class="funding">$45M</td>
+      <td><span class="overall mid">6.7</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s4">4</span></td><td><span class="score s8">8</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td>
+    </tr>
+
+    <tr data-cat="memory" data-scores="7,7,6,9,6,5,8,5,4,10,7,6,4,6,9" data-overall="6.6" data-tested="15/15" data-name="LangChain / LlamaIndex">
+      <td><span class="co-name">LangChain / LlamaIndex</span><span class="co-hq">Open source · dominant orchestration</span></td>
+      <td class="funding">~$35M / ~$19M</td>
+      <td><span class="overall mid">6.6</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s9">9</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s8">8</span></td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td><span class="score s10">10</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s4">4</span></td><td><span class="score s6">6</span></td><td><span class="score s9">9</span></td>
+    </tr>
+
+    <tr data-cat="memory" data-scores="7,6,10,6,3,4,9,5,3,7,6,8,6,9,8" data-overall="6.5" data-tested="15/15" data-name="Screenpipe">
+      <td><span class="co-name">Screenpipe <span class="tag yc">YC</span></span><span class="co-hq">Open source · YC S26 · 21K stars</span></td>
+      <td class="funding">YC S26</td>
+      <td><span class="overall mid">6.5</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s10">10</span></td><td><span class="score s6">6</span></td><td><span class="score s3">3</span></td><td><span class="score s4">4</span></td><td><span class="score s9">9</span></td><td><span class="score s5">5</span></td><td><span class="score s3">3</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s8">8</span></td><td><span class="score s6">6</span></td><td><span class="score s9">9</span></td><td><span class="score s8">8</span></td>
+    </tr>
+
+    <tr data-cat="memory" data-scores="7,6,7,7,5,7,7,6,7,6,6,5,6,8,6" data-overall="6.4" data-tested="15/15" data-name="Swimm">
+      <td><span class="co-name">Swimm</span><span class="co-hq">Tel Aviv · code documentation</span></td>
+      <td class="funding">~$33M</td>
+      <td><span class="overall mid">6.4</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s8">8</span></td><td><span class="score s6">6</span></td>
+    </tr>
+
+    <tr data-cat="memory" data-scores="7,6,6,6,9,4,8,4,4,8,6,5,5,6,8" data-overall="6.1" data-tested="15/15" data-name="Cognee">
+      <td><span class="co-name">Cognee</span><span class="co-hq">Open source · 30K stars</span></td>
+      <td class="funding">VC-backed</td>
+      <td><span class="overall lo">6.1</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s9">9</span></td><td><span class="score s4">4</span></td><td><span class="score s8">8</span></td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td><span class="score s8">8</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s8">8</span></td>
+    </tr>
+
+    <tr data-cat="memory" data-scores="7,7,6,6,5,5,8,4,4,9,6,4,5,6,8" data-overall="6.0" data-tested="15/15" data-name="Letta (MemGPT)">
+      <td><span class="co-name">Letta (MemGPT)</span><span class="co-hq">Open source · 24K stars</span></td>
+      <td class="funding">$10M seed</td>
+      <td><span class="overall lo">6.0</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s8">8</span></td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td><span class="score s9">9</span></td><td><span class="score s6">6</span></td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s8">8</span></td>
+    </tr>
+
+    <tr data-cat="memory" data-scores="8,7,6,7,4,5,6,6,5,7,5,5,7,7,5" data-overall="6.0" data-tested="15/15" data-name="Kapa.ai">
+      <td><span class="co-name">Kapa.ai</span><span class="co-hq">Docs Q&amp;A · 30+ sources</span></td>
+      <td class="funding">~$3.2M</td>
+      <td><span class="overall lo">6.0</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s8">8</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td>
+    </tr>
+
+    <tr data-cat="memory" data-scores="7,6,7,6,6,4,7,4,4,8,6,4,5,7,7" data-overall="5.9" data-tested="15/15" data-name="Zep">
+      <td><span class="co-name">Zep</span><span class="co-hq">Conversational memory · 4.8K stars</span></td>
+      <td class="funding">~$10-20M</td>
+      <td><span class="overall lo">5.9</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s7">7</span></td><td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s4">4</span></td><td><span class="score s7">7</span></td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td><span class="score s8">8</span></td><td><span class="score s6">6</span></td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s7">7</span></td>
+    </tr>
+
+    <tr data-cat="memory" data-scores="6,5,6,4,5,4,10,5,3,6,9,5,6,5,9" data-overall="5.9" data-tested="15/15" data-name="Epicenter">
+      <td><span class="co-name">Epicenter</span><span class="co-hq">Local-first · open source · 4.7K stars</span></td>
+      <td class="funding">~$500K</td>
+      <td><span class="overall lo">5.9</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td><span class="score s10">10</span></td><td><span class="score s5">5</span></td><td><span class="score s3">3</span></td><td><span class="score s6">6</span></td><td><span class="score s9">9</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s9">9</span></td>
+    </tr>
+
+    <tr data-cat="memory" data-scores="6,6,5,7,4,5,5,5,4,7,5,4,7,5,6" data-overall="5.4" data-tested="15/15" data-name="Langbase">
+      <td><span class="co-name">Langbase</span><span class="co-hq">Serverless agent platform · 250+ models</span></td>
+      <td class="funding">~$550K</td>
+      <td><span class="overall lo">5.4</span></td>
+      <td class="tested">15/15</td>
+      <td><span class="score s6">6</span></td><td><span class="score s6">6</span></td><td><span class="score s5">5</span></td><td><span class="score s7">7</span></td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td><span class="score s7">7</span></td><td><span class="score s5">5</span></td><td><span class="score s6">6</span></td>
     </tr>
 
   </tbody>
@@ -824,11 +889,12 @@ tr.group td{
 <!-- key signals -->
 <div class="signals">
   <h2>Key signals from the scorecard</h2>
-  <p><b>Notion AI leads the company brain category</b> because it ships the broadest set of capabilities: AI search, synthesis, writing assist, and collaboration in one surface. Its weakness is privacy &mdash; cloud-only with no on-premises option, no E2E encryption, which locks out regulated industries.</p>
-  <p><b>Obsidian leads the personal brain category on a radically different axis</b> &mdash; not AI, but sovereignty. Local-first storage, E2E encrypted sync, 1,500+ community plugins, and zero lock-in (plain Markdown files you own). Its AI features exist only through plugins, which limits cohesion but maximizes user control.</p>
-  <p><b>The two categories optimize for opposite things.</b> Company brains invest in collaboration and integrations (Notion: 10 collab, 7 integrations). Personal brains invest in privacy and portability (Obsidian: 10 privacy, 10 export). No product has cracked both &mdash; the Notion-for-one and the Obsidian-for-teams gap remains unfilled.</p>
-  <p><b>Google NotebookLM is the sleeper.</b> Free, Gemini-powered, with best-in-class synthesis (audio overviews that sound like a podcast). But no API, no graph, and no collaboration &mdash; it&rsquo;s a research tool, not a brain. If Google opens the platform, scores shift fast.</p>
-  <p><b>Glean is the enterprise search king</b> but barely a &ldquo;brain.&rdquo; It ingests everything (10 on integrations, 10 on AI search) but you can&rsquo;t create in it, link ideas, or export your knowledge. It&rsquo;s read-only intelligence, not a working memory.</p>
+  <p><b>Platform AI is the existential threat.</b> Microsoft 365 Copilot (7.5), ChatGPT Memory (7.0), and Claude Projects (7.0) ship context as a native property of the model. When the tool you already use adds memory, a standalone company brain needs a defensible wedge &mdash; not just &ldquo;we also do knowledge.&rdquo;</p>
+  <p><b>Notion AI still leads company brain (8.2)</b> because it ships the broadest capability set in one surface. But the YC 2026 cohort is coming fast: Hyper (6.9), Cerenovus (6.5), Memory Store (6.5), Savant (6.2), and Glen (6.3) all ship MCP-native company brains with knowledge graphs. The race is to become the context layer AI agents query by default.</p>
+  <p><b>GBrain (7.5) is the open-source dark horse.</b> Markdown-first, local-first, MIT licensed with 28K stars. Perfect 10 on privacy, export, and pricing. Its &ldquo;dream cycle&rdquo; that consolidates memory overnight is a novel architecture no proprietary tool has replicated.</p>
+  <p><b>Obsidian (7.5) still leads personal brain on sovereignty.</b> But the gap is closing &mdash; Mem.ai (a16z-backed, 6.6) and Reflect (6.6) ship AI-native experiences that Obsidian achieves only through plugins.</p>
+  <p><b>Memory infra is an emerging layer.</b> Quivr (YC W24, 6.9), Mem0 (6.7, 63K stars), and Screenpipe (YC S26, 6.5) are building the memory primitives that company brains and personal brains will consume. LangChain/LlamaIndex (6.6) remain the orchestration default.</p>
+  <p><b>Enterprise incumbents are being acquired.</b> Moveworks &rarr; ServiceNow ($2.85B), Sana &rarr; Workday, Dashworks &rarr; HubSpot, Starmind &rarr; Capacity. The standalone enterprise knowledge category is consolidating into platform suites.</p>
 </div>
 
 </div><!-- /scorecardView -->
@@ -993,8 +1059,11 @@ tr.group td{
 
   <div class="method">
     <h2>Category definitions</h2>
-    <p><b>Company Brain:</b> Products whose primary use case is team knowledge management &mdash; shared wikis, enterprise search, internal knowledge bases, and AI-powered answers across organizational data. Optimized for collaboration, integrations, and governance.</p>
+    <p><b>Platform AI:</b> Model vendors (Microsoft, OpenAI, Anthropic) that ship context and memory as native features of their AI platform. They control the model and distribution &mdash; the most dangerous competitive position.</p>
+    <p><b>Company Brain:</b> Products whose primary use case is team knowledge management &mdash; shared wikis, enterprise search, internal knowledge bases, and AI-powered answers across organizational data. Includes incumbents and YC/a16z-backed pure-plays.</p>
+    <p><b>Enterprise Knowledge:</b> Funded incumbents and work AI platforms that serve enterprise knowledge as part of a larger platform (support automation, GTM, DevOps). Many have been acquired by suite vendors.</p>
     <p><b>Personal Brain:</b> Products designed for individual knowledge management &mdash; personal note-taking, knowledge graphs, life capture, and AI-assisted thinking. Optimized for privacy, portability, and personal workflow.</p>
+    <p><b>Memory Infra:</b> The infrastructure layer &mdash; agent memory frameworks, RAG platforms, and capture tools that other products build on. Often open-source with strong developer communities.</p>
   </div>
 
   <div class="method">
@@ -1017,13 +1086,13 @@ tr.group td{
 
   <div class="method">
     <h2>Benchmark version</h2>
-    <p><b>v0.1</b> &middot; September 15, 2026 &middot; 20 products &middot; 15 dimensions &middot; Scoring based on public data only.</p>
+    <p><b>v0.2</b> &middot; September 17, 2026 &middot; 60 products &middot; 15 dimensions &middot; Scoring based on public data only. Includes all companies from the <a href="https://vivekally.github.io/coconut-ai-analysis-2026/competitors.html" target="_blank" style="color:var(--brain);text-decoration:none;border-bottom:1px solid rgba(76,201,240,.3)">Coconut AI Competitor Database</a>.</p>
     <p>Future versions will add: independent testing scores, head-to-head comparisons, use-case-specific rankings, and new products as they emerge.</p>
   </div>
 </div>
 
 <div class="foot">
-  <b>Second Brain Benchmark v0.1</b> &middot; Prepared September 2026. Scores derived from public sources only &mdash; company websites, product docs, press coverage, and community feedback. All scores are directional and subject to revision as independent verification becomes available. <b>No vendor paid for inclusion or a higher score.</b><br>
+  <b>Second Brain Benchmark v0.2</b> &middot; Prepared September 2026. 60 products from the <a href="https://vivekally.github.io/coconut-ai-analysis-2026/competitors.html" target="_blank">Coconut AI Competitor Database</a>, Y&nbsp;Combinator, and a16z portfolios. Scores derived from public sources only &mdash; company websites, product docs, press coverage, and community feedback. All scores are directional and subject to revision. <b>No vendor paid for inclusion or a higher score.</b><br>
   <a href="https://vivekally.github.io/digital-twins/">vivekally.github.io/digital-twins</a> &middot; Research and benchmarks by Vivek Ally
 </div>
 
